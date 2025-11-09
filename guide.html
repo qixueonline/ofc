@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>
+   祈雪武林外传｜官方站
+  </title>
+<meta content="《武林外传》官方站：开服时间、客户端下载、更新公告、玩法特色、门派与江湖活动。" name="description"/>
+<meta content="武林外传, 完美世界, MMORPG, 江湖, 门派, 轻功, 帮战, 私服, 开服, 下载, 攻略" name="keywords"/>
+<link href="/favicon.ico" rel="icon"/>
+<meta content="武林外传｜官方站" property="og:title"/>
+<meta content="开服公告、客户端下载与新手指南，一站搞定。" property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="/og-cover.jpg" property="og:image"/>
+<meta content="#0b1220" name="theme-color"/>
+<!-- TailwindCSS CDN（可换本地构建） -->
+<script src="https://cdn.tailwindcss.com">
+</script>
+<style>
+   /* Safety: prevent decorative layers from blocking clicks */
+[aria-hidden=""] { pointer-events: none; }
+
+
+
+    /* === White frame & dark box accents === */
+    :root {
+      --gold: #ffffff;
+      --gold-soft: rgba(255, 255, 255, 0.85);
+      --gold-glow: rgba(255, 255, 255, 0.4);
+    }
+    .glass, .card, .content-box, .rounded-2xl, .border {
+      border: 2px solid var(--gold-soft) !important;
+      background-color: rgba(0, 0, 0, 0.7) !important;
+      box-shadow:
+        0 0 18px var(--gold-glow),
+        0 0 10px rgba(255,255,255,0.5),
+        inset 0 0 6px rgba(255,255,255,0.3);
+    }
+    h1, h2, h3 {
+      position: relative;
+      color: #fff;
+      text-shadow: 0 0 12px rgba(255,255,255,0.7);
+    }
+    h1::after, h2::after, h3::after {
+      content: "";
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      box-shadow: 0 0 15px var(--gold-glow);
+    }
+    a:hover, button:hover {
+      box-shadow:
+        0 0 12px var(--gold-soft),
+        0 0 25px var(--gold-glow);
+      border-color: var(--gold);
+    }
+    body::before, body::after {
+      content: "";
+      position: fixed;
+      left: 0; right: 0;
+      height: 3px;
+      z-index: 60;
+      pointer-events: none;
+      background: linear-gradient(90deg, transparent 0%, var(--gold) 15%, var(--gold) 85%, transparent 100%);
+      box-shadow: 0 0 25px var(--gold-glow);
+    }
+    body::before { top: 0; }
+    body::after  { bottom: 0; }
+
+body::before { top: 0; }
+body::after { bottom: 0; }
+
+
+/* === Refinement: remove underline for small box titles === */
+.glass h1::after, .glass h2::after, .glass h3::after,
+.card h1::after, .card h2::after, .card h3::after,
+.content-box h1::after, .content-box h2::after, .content-box h3::after {
+  display: none !important;
+}
+  
+
+/* Search highlight */
+mark.guide-hit { background: rgba(212,175,55,0.35); padding: 0 .15em; border-radius: 3px; }
+
+
+.auto-cyan {
+  color: #00FFFF; /* 明亮青色 */
+  font-weight: bold;
+}
+
+
+.auto-red {
+  color: #FF4040; /* 鲜红 */
+  font-weight: bold;
+}
+body {
+  background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('bg.jpg');
+  background-repeat: no-repeat, no-repeat;
+  background-position: center top, center top;
+  background-size: auto, cover;
+  background-attachment: fixed, fixed;
+}
+
+    /* === Custom title and button color adjustments === */
+    h1, h2 {
+      color: #FFD700 !important; /* 金色 */
+      font-weight: 700 !important;
+      text-shadow: none !important; /* 移除发光 */
+    }
+    #guidepage h1.text-3xl,
+    #guidepage h2.text-xl {
+      color: #FFD700 !important;
+      font-weight: 700 !important;
+      text-shadow: none !important;
+    }
+    #guidepage a[href="index.html"] {
+      background-color: transparent !important;
+      color: #ffffff !important;
+      font-weight: 700 !important;
+      border: 2px solid #ffffff !important;
+    }
+
+
+    /* === Add gold underline for titles === */
+    #guidepage h1.text-3xl::after,
+    #guidepage h2.text-xl::after {
+      content: "";
+      display: block;
+      width: 120px;
+      height: 3px;
+      margin-top: 10px;
+      background: linear-gradient(90deg, #FFD700, transparent);
+      border-radius: 2px;
+    }
+
+
+    /* === Fix: center main title underline & force lines on all small titles === */
+    /* 1) 大标题（居中）下的金色线条也居中 */
+    #guidepage h1.text-3xl::after {
+      content: "";
+      display: block !important;
+      width: 140px;
+      height: 3px;
+      margin: 10px auto 0 auto; /* 居中 */
+      background: linear-gradient(90deg, #FFD700, transparent);
+      border-radius: 2px;
+    }
+    /* 2) 小标题全部加金色线条，并强制显示（覆盖 .glass *.::after 的隐藏） */
+    #guidepage h2.text-xl::after {
+      content: "";
+      display: block !important; /* 强制显示 */
+      width: 120px;
+      height: 3px;
+      margin-top: 10px;
+      background: linear-gradient(90deg, #FFD700, transparent);
+      border-radius: 2px;
+    }
+    /* 3) 明确覆盖原样式里对 .glass 标题 after 的隐藏 */
+    #guidepage .glass h1::after,
+    #guidepage .glass h2::after,
+    #guidepage .glass h3::after {
+      display: block !important;
+    }
+
+
+    /* === Enforce centered underline for main H1; show lines for all H2 === */
+    #guidepage h1.text-3xl { position: relative !important; }
+    #guidepage h1.text-3xl::after {
+      content: "";
+      position: absolute !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      bottom: -8px !important;
+      width: 140px !important;
+      height: 3px !important;
+      background: linear-gradient(90deg, #FFD700, transparent) !important;
+      border-radius: 2px !important;
+      display: block !important;
+    }
+    #guidepage h2.text-xl { position: relative !important; }
+    #guidepage h2.text-xl::after {
+      content: "";
+      position: absolute !important;
+      left: 0 !important;
+      bottom: -8px !important;
+      width: 120px !important;
+      height: 3px !important;
+      background: linear-gradient(90deg, #FFD700, transparent) !important;
+      border-radius: 2px !important;
+      display: block !important;
+    }
+    /* Make sure .glass rules never hide these lines */
+    #guidepage .glass h1::after,
+    #guidepage .glass h2::after { display: block !important; }
+
+</style>
+<!-- 结构化数据（可改成你的游戏信息） -->
+<script type="application/ld+json">
+   {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "武林外传",
+    "operatingSystem": "Windows, Android",
+    "applicationCategory": "Game",
+    "genre": ["MMO","RPG"],
+    "inLanguage": "zh-CN",
+    "image": "/og-cover.jpg",
+    "description": "开服公告、客户端下载与新手指南。",
+    "publisher": {"@type": "Organization","name": "运营团队"}
+  }
+  </script>
+</head>
+<body class="bg-[#0b0f1a] text-white">
+<!-- 顶部导航 -->
+<header class="fixed inset-x-0 top-0 z-50 bg-[#0b0f1a]/70 backdrop-blur border-b border-white/10">
+<div class="max-w-6xl mx-auto px-4 lg:px-6 h-16 flex items-center justify-between">
+<a class="flex items-center gap-3 group" href="#home">
+<img alt="logo" class="w-8 h-8 rounded-lg object-cover border border-white/20 shadow-md" src="logo.png"/>
+<span class="font-semibold tracking-wide group-hover:opacity-90">
+      苍穹大陆 · 武林外传
+     </span>
+</a>
+<nav class="hidden md:flex items-center gap-6 text-sm">
+<a class="hover:opacity-80" href="#news">
+      公告
+     </a>
+<a class="hover:opacity-80" href="#play">
+      开始游戏
+     </a>
+<a class="hover:opacity-80" href="#guide">
+      新手指南
+     </a>
+<a class="hover:opacity-80" href="#features">
+      特色
+     </a>
+<a class="hover:opacity-80" href="#screens">
+      截图
+     </a>
+<a class="hover:opacity-80" href="#topup">
+      充值
+     </a>
+<a class="hover:opacity-80" href="#support">
+      客服
+     </a>
+</nav>
+<div class="flex items-center gap-2">
+<a class="px-3 py-2 text-sm rounded-xl bg-white/90 text-black hover:bg-white" href="#home">
+      立即开玩
+     </a>
+<button aria-label="menu" class="md:hidden p-2 rounded-lg hover:bg-white/10" id="menuBtn">
+<svg class="h-6 w-6" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+</path>
+</svg>
+</button>
+</div>
+</div>
+<div class="md:hidden hidden border-t border-white/10" id="mobileMenu">
+<div class="px-4 py-3 flex flex-col gap-3 text-sm">
+<a class="hover:opacity-80" href="#news">
+      公告
+     </a>
+<a class="hover:opacity-80" href="#play">
+      开始游戏
+     </a>
+<a class="hover:opacity-80" href="#guide">
+      新手指南
+     </a>
+<a class="hover:opacity-80" href="#features">
+      特色
+     </a>
+<a class="hover:opacity-80" href="#screens">
+      截图
+     </a>
+<a class="hover:opacity-80" href="#topup">
+      充值
+     </a>
+<a class="hover:opacity-80" href="#support">
+      客服
+     </a>
+</div>
+</div>
+</header>
+<!-- Hero -->
+<!-- 公告 / News -->
+<!-- 开始游戏 / CTA -->
+<!-- 特色 -->
+<!-- 截图 -->
+<!-- 新手指南 / FAQ -->
+<!-- 充值 -->
+<!-- 客服 -->
+<!-- 页脚 -->
+<section class="section py-20" id="guidepage">
+<div class="max-w-5xl mx-auto px-4 lg:px-6">
+<h1 class="text-3xl md:text-4xl font-bold mb-10 text-center">
+     游戏攻略与玩法教程
+    </h1>
+<div class="glass rounded-2xl p-4 border border-white/10 mb-6">
+<div class="flex items-center gap-3">
+<input class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 outline-none focus:border-white/30" id="guideSearch" placeholder="输入关键字搜索本页攻略…" type="search"/>
+<button class="px-3 py-2 rounded-xl bg-white/10 border border-white/20 hover:bg-white/20" id="guideClear">清空</button>
+</div>
+<div class="mt-2 text-sm text-white/60">匹配到 <span id="guideCount">0</span> 条结果</div>
+</div>
+<article class="glass rounded-2xl p-6 border border-white/10 mb-10">
+<h2 class="text-xl font-semibold mb-3">
+      版本设置介绍
+     </h2>
+<img alt="版本介绍" class="w-full rounded-xl mb-4" src="guide1.jpg"/>
+<p class="text-white/80 leading-relaxed text-sm">
+      •此版本自带一件拾取功能，可以在七侠镇【娄知县】处购买放在包裹即可启动
+     </p>
+<p class="text-white/80 leading-relaxed text-sm">
+      •武器外观、时装外观、坐骑外观均可自己幻化
+     </p>
+<p class="text-white/80 leading-relaxed text-sm">
+      •每阶段大陆都有售卖传送符；第一大陆【娄知县】、第四大陆【精炼符相关】、第五大陆【任务管理员】
+     </p>
+<p class="text-white/80 leading-relaxed text-sm">
+      •所有时装均可通过【巧夺天工】功能进行升级，获得更高属性与炫酷外观！
+     </p>
+<p class="text-white/80 leading-relaxed text-sm">
+      •上线赠送的坐骑可通过【巧夺天工】功能进行升级，获得更高属性与炫酷外观！
+     </p>
+<p class="text-white/80 leading-relaxed text-sm">
+      •所有材料均可通过挂机打怪/打boss/J商店获得
+     </p>
+<p class="text-white/80 leading-relaxed text-sm">
+      •通过打怪获得材料：符文碎片、灵兽精魄、转生灵石、金币、怪物精魄、怪物精魄30和50都能右键直接使用，或者去NPC哪里出售获得材料，也可以去【特色挂机】NPC批量兑换材料，三种都可以，[出售注意算好数量，30不能超过1000个、50不能超过600个，出售错误自行负责]
+     </p>
+<p class="text-white/80 leading-relaxed text-sm">
+      •【特色挂机】NPC里面还能兑换：本篇章顶级装备、材料互换等自行查看！
+     </p>
+<p class="text-white/80 leading-relaxed text-sm">
+      •【回收装备】可以获得御剑之魂、每日挑战NPC获得御剑石，锻造石等材料！
+     </p>
+<p class="text-white/80 leading-relaxed text-sm">
+      •等级130级30转后可以前往第二大陆去后往外外走有怪物，路上有BOSS，继续做第二大陆里面转生和其它任务，做完后去第三大陆，第三大陆往外走就有怪，也可以进入副本打怪获得装备！第三大陆做完转生后去第四大陆
+     </p>
+<p class="text-white/80 leading-relaxed text-sm">
+      •等级150级50转可以前往第四大陆，150级50转后会送一套可以升级到顶级的套装，记得去新大陆后升级装备！
+     </p>
+<p class="text-white/80 leading-relaxed text-sm">
+      •[注意：武器外观幻化，需要把幻化和武器位置放对，不要幻化错了。]
+     </p>
+<p class="text-white/80 leading-relaxed text-sm">
+      •[注意：时装和坐骑幻化也是一样不要幻化错了！幻化错误概不负责!]
+     </p>
+</article>
+<article class="glass rounded-2xl p-6 border border-white/10 mb-10">
+<h2 class="text-xl font-semibold mb-3">
+      新手指南流程
+     </h2>
+<img alt="新手指南流程" class="w-full rounded-xl mb-4" src="guide2.jpg"/>
+<p class="text-white/80 leading-relaxed text-sm">
+      •主要完成每个[主线任务(英雄任务)]，每一个大陆和篇章都有一定的难度，提升自身实力才能在下一个大陆轻松挑战
+     </p>
+<p class="text-white/80 leading-relaxed text-sm">
+      •第四大陆主线任务：[神秘龙气] 完成这个主线任务才能显示第五大陆的主线任务
+     </p>
+<p class="text-white/80 leading-relaxed text-sm">
+      •上线做[新手指引任务]，穿上包裹内的装备和坐骑打20只苍穹吉祥兽升到100级
+     </p>
+<p class="text-white/80 leading-relaxed text-sm">
+      •完成任务后，拾取一些装备去娄知县卖掉，娄知县购买免费的【图形称号】和【一键拾取功能物品】
+</p>
+<p class="text-white/80 leading-relaxed text-sm">
+      •再去【转生系统】做3次转生【3转】后，进入第一篇章内刷怪和BOSS收集装备和材料
+     </p>
+<img alt="优先完成" class="w-full rounded-xl mb-4" src="guide12.jpg"/>
+<p class="text-white/80 leading-relaxed text-sm">
+  • 优先完成 
+  【转生系统】、
+  【段位系统】、
+  【功勋系统】、
+  【称号系统】。
+  转生和等级符合要求即可进入下一个大陆，重点完成【转生系统】，材料充足的情况下，也可以做一下功勋、段位等任务，提升自身实力
+</p>
+<p class="text-white/80 leading-relaxed text-sm">
+      •打多的装备可以找到【回收系统】进行回收，兑换用于提升实力的材料
+     </p>
+<p class="text-white/80 leading-relaxed text-sm">
+      •第一大陆【七侠镇】主要提升转生和等级，以及做日常任务获得日常令牌，令牌可以去【日常、唐门饰品兑换】兑换高级饰品，也能接日常任务。
+     </p>
+<p class="text-white/80 leading-relaxed text-sm">
+      •每两个小时2点、4点、6点、8点、10点、12点会自动接到经验副本门票，在第四大陆找NPC进入经验副本可以刷【20E经验卷轴】，此卷轴最多可以升到200级
+     </p>
+<p class="text-white/80 leading-relaxed text-sm">
+      •每天都有20次的跑环任务，做完可以兑换【跑环称号】和物品
+     </p>
+<p class="text-white/80 leading-relaxed text-sm">
+      •进入5大陆后，做完任务就能解锁新地图【三皇之巅】【汝阳】【烽烟】【涪陵】【段海】【桃园】【昆吾】等更多地图等待解锁！前提是完成第6大陆和第7大陆的条件才能进入【汝阳】等地图
+     </p>
+<p class="text-white/80 leading-relaxed text-sm">
+      •XXX
+     </p>
+</article>
+<article class="glass rounded-2xl p-6 border border-white/10 mb-10">
+<h2 class="text-xl font-semibold mb-3">
+      •物品功能介绍
+     </h2>
+<img alt="物品功能介绍" class="w-full rounded-xl mb-4" src="guide3.jpg"/>
+<p class="text-white/80 leading-relaxed text-sm">
+      •敬请期待
+     </p>
+<p class="text-white/80 leading-relaxed text-sm">
+      •敬请期待
+     </p>
+<p class="text-white/80 leading-relaxed text-sm">
+      •敬请期待
+     </p>
+<p class="text-white/80 leading-relaxed text-sm">
+      •敬请期待
+     </p>
+<p class="text-white/80 leading-relaxed text-sm">
+      •敬请期待
+     </p>
+<p class="text-white/80 leading-relaxed text-sm">
+      •敬请期待
+     </p>
+</article>
+<article class="glass rounded-2xl p-6 border border-white/10 mb-10">
+<h2 class="text-xl font-semibold mb-3">
+      氪金购买建议
+     </h2>
+<img alt="氪金购买建议" class="rounded-xl mb-4" src="guide22.jpg" style="max-width:100%; width:auto; height:auto; display:block; image-rendering:auto; object-fit:contain;"/>
+<p class="text-white/80 leading-relaxed text-sm">
+      •游戏内角色头像下面领取VIP奖励，点开后激活即可领取VIP奖励
+     </p>
+<p class="text-white/80 leading-relaxed text-sm">
+      •商城购买100个VIP金币在【VIP系统】的NPC完成【至尊VIP称号】，此称号有打怪获得【双倍金币】的效果。
+     </p>
+<p class="text-white/80 leading-relaxed text-sm">
+[注意：如果购买了【1-50转生礼包】，就不需要购买VIP金币了，因为礼包内带有VIP金币，买多了没用！]
+</p>
+<p class="text-white/80 leading-relaxed text-sm">
+      •元宝足够可以直接购买【装备镶嵌石10级】【金银双龙礼包】【海王礼包】【唐门顶级法礼包】，购买后直接可以去四大陆开启[魂师]和[魂环之路]！
+</p>
+<p class="text-white/80 leading-relaxed text-sm">
+      •元宝使用后在[鸿利商城]可以兑换积分，积分可以去【娄知县】兑换金块和材料等东西
+</p>
+<p class="text-white/80 leading-relaxed text-sm">
+      •氪金快速玩法：上线打【20只吉祥兽】后，商场购买【1-50转礼包】，用赠送的【VIP金币】升到【至尊VIP称号】，等级可以升到150级，完成50转任务，直接到达【第四大陆】
+</p>
+</article>
+<div class="text-center mt-12">
+<a class="inline-block px-5 py-3 bg-white text-black rounded-2xl hover:opacity-90" href="index.html">
+      返回首页
+     </a>
+</div>
+</div>
+</section>
+<footer class="py-10 border-t border-white/10 text-sm">
+<div class="max-w-6xl mx-auto px-4 lg:px-6 flex flex-col md:flex-row items-center justify-between gap-3 text-white/60">
+<div>
+     ©
+     <span id="y">
+</span>
+     运营团队 · 保留所有权利
+    </div>
+<div class="flex items-center gap-4">
+<a class="hover:opacity-80" href="/privacy.html">
+      隐私政策
+     </a>
+<a class="hover:opacity-80" href="/terms.html">
+      服务条款
+     </a>
+</div>
+</div>
+</footer>
+<script>
+   // 年份 & 移动菜单
+    document.getElementById('y').textContent = new Date().getFullYear();
+    const btn = document.getElementById('menuBtn');
+    const menu = document.getElementById('mobileMenu');
+    btn && btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+  </script>
+<!-- 可替换为你的 GA/像素脚本 -->
+<!-- <script>/* Google Analytics */</script> -->
+<script>
+(function(){
+  const box = document.getElementById('guideSearch');
+  const clearBtn = document.getElementById('guideClear');
+  const countEl = document.getElementById('guideCount');
+  const cards = Array.from(document.querySelectorAll('#guidepage article'));
+  if (!box || !clearBtn || !countEl || !cards.length) return;
+
+  // unmark all highlights inside an element
+  function unmark(el){
+    // unwrap all <mark class="guide-hit">
+    el.querySelectorAll('mark.guide-hit').forEach(mark => {
+      const text = document.createTextNode(mark.textContent);
+      const parent = mark.parentNode;
+      parent.replaceChild(text, mark);
+      parent.normalize();
+    });
+  }
+
+  // add highlight for query within a card
+  function highlight(el, q){
+    if (!q) return;
+    const safe = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const re = new RegExp(safe, 'gi');
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+    const nodes = [];
+    while (walker.nextNode()) {
+      const t = walker.currentNode;
+      if (t.nodeValue && re.test(t.nodeValue)) nodes.push(t);
+    }
+    nodes.forEach(t => {
+      const span = document.createElement('span');
+      span.innerHTML = t.nodeValue.replace(re, m => `<mark class="guide-hit">${m}</mark>`);
+      t.parentNode.replaceChild(span, t);
+    });
+  }
+
+  function apply(){
+    const q = box.value.trim();
+    let visible = 0;
+    cards.forEach(card => {
+      // reset card
+      unmark(card);
+      if (!q) {
+        card.style.display = '';
+        visible++;
+        return;
+      }
+      const hay = (card.textContent || '').toLowerCase();
+      const needle = q.toLowerCase();
+      if (hay.includes(needle)) {
+        card.style.display = '';
+        highlight(card, q);
+        visible++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+    countEl.textContent = String(visible);
+  }
+
+  let composing = false;
+  let timer = null;
+  box.addEventListener('compositionstart', () => { composing = true; });
+  box.addEventListener('compositionend', () => { composing = false; apply(); });
+  box.addEventListener('input', () => {
+    if (composing) return;
+    clearTimeout(timer);
+    timer = setTimeout(apply, 120);
+  });
+
+  // One-click clear
+  clearBtn.addEventListener('click', () => {
+    box.value = '';
+    clearTimeout(timer);
+    composing = false;
+    apply();
+    box.focus();
+  });
+
+  // Keyboard helpers
+  box.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { clearTimeout(timer); apply(); }
+    if (e.key === 'Escape') { clearBtn.click(); }
+  });
+
+  // first render
+  apply();
+})();
+</script><script>
+(function() {
+  // 自动将【】包裹的内容变成亮青色
+  const paras = document.querySelectorAll('#guidepage p');
+  paras.forEach(p => {
+    if (p.innerHTML.includes('【') && p.innerHTML.includes('】')) {
+      p.innerHTML = p.innerHTML.replace(/【(.*?)】/g, '<span class="auto-cyan">【$1】</span>');
+    }
+  });
+})();
+</script><script>
+(function() {
+  // 自动将 [] 包裹的内容变成红色
+  const paras = document.querySelectorAll('#guidepage p');
+  paras.forEach(p => {
+    // 跳过已经在 <span> 内的 []，尽量减少重复包裹
+    const html = p.innerHTML;
+    if (html.includes('[') && html.includes(']')) {
+      // 先避免对已存在 .auto-red 的重复处理
+      const tmp = html.replace(/\[(.*?)\]/g, (m, g1) => { return `<span class=\"auto-red\">${g1}</span>`; });
+      p.innerHTML = tmp;
+    }
+  });
+})();
+</script></body>
+</html>
