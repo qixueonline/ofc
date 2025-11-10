@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>
+   祈雪武林外传｜官方站
+  </title>
+<meta content="《武林外传》官方站：开服时间、客户端下载、更新公告、玩法特色、门派与江湖活动。" name="description"/>
+<meta content="武林外传, 完美世界, MMORPG, 江湖, 门派, 轻功, 帮战, 私服, 开服, 下载, 攻略" name="keywords"/>
+<link href="/favicon.ico" rel="icon"/>
+<meta content="武林外传｜官方站" property="og:title"/>
+<meta content="开服公告、客户端下载与新手指南，一站搞定。" property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="/og-cover.jpg" property="og:image"/>
+<meta content="#0b1220" name="theme-color"/>
+<!-- TailwindCSS CDN（可换本地构建） -->
+<script src="https://cdn.tailwindcss.com">
+</script>
+<style>
+   /* Safety: prevent decorative layers from blocking clicks */
+[aria-hidden=""] { pointer-events: none; }
+
+
+
+    /* === White frame & dark box accents === */
+    :root {
+      --gold: #ffffff;
+      --gold-soft: rgba(255, 255, 255, 0.85);
+      --gold-glow: rgba(255, 255, 255, 0.4);
+    }
+    .glass, .card, .content-box, .rounded-2xl, .border {
+      border: 2px solid var(--gold-soft) !important;
+      background-color: rgba(0, 0, 0, 0.7) !important;
+      box-shadow:
+        0 0 18px var(--gold-glow),
+        0 0 10px rgba(255,255,255,0.5),
+        inset 0 0 6px rgba(255,255,255,0.3);
+    }
+    h1, h2, h3 {
+      position: relative;
+      color: #fff;
+      text-shadow: 0 0 12px rgba(255,255,255,0.7);
+    }
+    h1::after, h2::after, h3::after {
+      content: "";
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      box-shadow: 0 0 15px var(--gold-glow);
+    }
+    a:hover, button:hover {
+      box-shadow:
+        0 0 12px var(--gold-soft),
+        0 0 25px var(--gold-glow);
+      border-color: var(--gold);
+    }
+    body::before, body::after {
+      content: "";
+      position: fixed;
+      left: 0; right: 0;
+      height: 3px;
+      z-index: 60;
+      pointer-events: none;
+      background: linear-gradient(90deg, transparent 0%, var(--gold) 15%, var(--gold) 85%, transparent 100%);
+      box-shadow: 0 0 25px var(--gold-glow);
+    }
+    body::before { top: 0; }
+    body::after  { bottom: 0; }
+
+body::before { top: 0; }
+body::after { bottom: 0; }
+
+
+/* === Refinement: remove underline for small box titles === */
+.glass h1::after, .glass h2::after, .glass h3::after,
+.card h1::after, .card h2::after, .card h3::after,
+.content-box h1::after, .content-box h2::after, .content-box h3::after {
+  display: none !important;
+}
+  
+
+/* Search highlight */
+mark.guide-hit { background: rgba(212,175,55,0.35); padding: 0 .15em; border-radius: 3px; }
+
+
+.auto-cyan {
+  color: #00FFFF; /* 明亮青色 */
+  font-weight: bold;
+}
+
+
+.auto-red {
+  color: #FF4040; /* 鲜红 */
+  font-weight: bold;
+}
+body {
+  background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('bg.jpg');
+  background-repeat: no-repeat, no-repeat;
+  background-position: center top, center top;
+  background-size: auto, cover;
+  background-attachment: fixed, fixed;
+}
+
+    /* === Custom title and button color adjustments === */
+    h1, h2 {
+      color: #FFD700 !important; /* 金色 */
+      font-weight: 700 !important;
+      text-shadow: none !important; /* 移除发光 */
+    }
+    #guidepage h1.text-3xl,
+    #guidepage h2.text-xl {
+      color: #FFD700 !important;
+      font-weight: 700 !important;
+      text-shadow: none !important;
+    }
+    #guidepage a[href="index.html"] {
+      background-color: transparent !important;
+      color: #ffffff !important;
+      font-weight: 700 !important;
+      border: 2px solid #ffffff !important;
+    }
+
+
+    /* === Add gold underline for titles === */
+    #guidepage h1.text-3xl::after,
+    #guidepage h2.text-xl::after {
+      content: "";
+      display: block;
+      width: 120px;
+      height: 3px;
+      margin-top: 10px;
+      background: linear-gradient(90deg, #FFD700, transparent);
+      border-radius: 2px;
+    }
+
+
+    /* === Fix: center main title underline & force lines on all small titles === */
+    /* 1) 大标题（居中）下的金色线条也居中 */
+    #guidepage h1.text-3xl::after {
+      content: "";
+      display: block !important;
+      width: 140px;
+      height: 3px;
+      margin: 10px auto 0 auto; /* 居中 */
+      background: linear-gradient(90deg, #FFD700, transparent);
+      border-radius: 2px;
+    }
+    /* 2) 小标题全部加金色线条，并强制显示（覆盖 .glass *.::after 的隐藏） */
+    #guidepage h2.text-xl::after {
+      content: "";
+      display: block !important; /* 强制显示 */
+      width: 120px;
+      height: 3px;
+      margin-top: 10px;
+      background: linear-gradient(90deg, #FFD700, transparent);
+      border-radius: 2px;
+    }
+    /* 3) 明确覆盖原样式里对 .glass 标题 after 的隐藏 */
+    #guidepage .glass h1::after,
+    #guidepage .glass h2::after,
+    #guidepage .glass h3::after {
+      display: block !important;
+    }
+
+
+    /* === Enforce centered underline for main H1; show lines for all H2 === */
+    #guidepage h1.text-3xl { position: relative !important; }
+    #guidepage h1.text-3xl::after {
+      content: "";
+      position: absolute !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      bottom: -8px !important;
+      width: 140px !important;
+      height: 3px !important;
+      background: linear-gradient(90deg, #FFD700, transparent) !important;
+      border-radius: 2px !important;
+      display: block !important;
+    }
+    #guidepage h2.text-xl { position: relative !important; }
+    #guidepage h2.text-xl::after {
+      content: "";
+      position: absolute !important;
+      left: 0 !important;
+      bottom: -8px !important;
+      width: 120px !important;
+      height: 3px !important;
+      background: linear-gradient(90deg, #FFD700, transparent) !important;
+      border-radius: 2px !important;
+      display: block !important;
+    }
+    /* Make sure .glass rules never hide these lines */
+    #guidepage .glass h1::after,
+    #guidepage .glass h2::after { display: block !important; }
+
+</style>
+<!-- 结构化数据（可改成你的游戏信息） -->
+<script type="application/ld+json">
+   {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "武林外传",
+    "operatingSystem": "Windows, Android",
+    "applicationCategory": "Game",
+    "genre": ["MMO","RPG"],
+    "inLanguage": "zh-CN",
+    "image": "/og-cover.jpg",
+    "description": "开服公告、客户端下载与新手指南。",
+    "publisher": {"@type": "Organization","name": "运营团队"}
+  }
+  </script>
+</head>
+<body class="bg-[#0b0f1a] text-white">
+<!-- 顶部导航 -->
+<header class="fixed inset-x-0 top-0 z-50 bg-[#0b0f1a]/70 backdrop-blur border-b border-white/10">
+<div class="max-w-6xl mx-auto px-4 lg:px-6 h-16 flex items-center justify-between">
+<a class="flex items-center gap-3 group" href="https://qixueonline.my/#home">
+<picture><source srcset="logo.webp" type="image/webp"/><img alt="logo" class="w-8 h-8 rounded-lg object-cover border border-white/20 shadow-md" decoding="async" fetchpriority="high" loading="eager" src="logo.png"/></picture>
+<span class="font-semibold tracking-wide group-hover:opacity-90">苍穹大陆 · 武林外传</span>
+</a>
+<nav class="hidden md:flex items-center gap-6 text-sm">
+<a class="hover:opacity-80" href="https://qixueonline.my/#news">公告</a>
+<a class="hover:opacity-80" href="https://qixueonline.my/#play">开始游戏</a>
+<a class="hover:opacity-80" href="https://qixueonline.my/#guide">新手指南</a>
+<a class="hover:opacity-80" href="https://qixueonline.my/#features">特色</a>
+<a class="hover:opacity-80" href="https://qixueonline.my/#screens">截图</a>
+<a class="hover:opacity-80" href="https://qixueonline.my/#vip-mounts">VIP订制坐骑</a>
+<a class="hover:opacity-80" href="https://qixueonline.my/#topup">充值</a>
+<a class="hover:opacity-80" href="https://qixueonline.my/#support">客服</a>
+</nav>
+<div class="flex items-center gap-2">
+<a class="px-3 py-2 text-sm rounded-xl bg-white/90 text-black hover:bg-white" href="https://qixueonline.my/#home">立即开玩</a>
+<button aria-label="menu" class="md:hidden p-2 rounded-lg hover:bg-white/10" id="menuBtn">
+<svg class="h-6 w-6" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+</svg>
+</button>
+</div>
+</div>
+<div class="md:hidden hidden border-t border-white/10" id="mobileMenu">
+<div class="px-4 py-3 flex flex-col gap-3 text-sm">
+<a class="hover:opacity-80" href="https://qixueonline.my/#news">公告</a>
+<a class="hover:opacity-80" href="https://qixueonline.my/#play">开始游戏</a>
+<a class="hover:opacity-80" href="https://qixueonline.my/#guide">新手指南</a>
+<a class="hover:opacity-80" href="https://qixueonline.my/#features">特色</a>
+<a class="hover:opacity-80" href="https://qixueonline.my/#screens">截图</a>
+<a class="hover:opacity-80" href="https://qixueonline.my/#vip-mounts">VIP订制坐骑</a>
+<a class="hover:opacity-80" href="https://qixueonline.my/#topup">充值</a>
+<a class="hover:opacity-80" href="https://qixueonline.my/#support">客服</a>
+</div>
+</div>
+</header>
+<!-- Hero -->
+<!-- 公告 / News -->
+<!-- 开始游戏 / CTA -->
+<!-- 特色 -->
+<!-- 截图 -->
+<!-- 新手指南 / FAQ -->
+<!-- 充值 -->
+<!-- 客服 -->
+<!-- 页脚 -->
+<section class="section py-20" id="guidepage">
+<div class="max-w-5xl mx-auto px-4 lg:px-6">
+<h1 class="text-3xl md:text-4xl font-bold mb-10 text-center">帮助中心</h1>
+
+<article class="glass rounded-2xl p-6 border border-white/10 mb-10">
+<h2 class="text-xl font-semibold mb-3">
+安装与下载（Windows）
+</h2>
+<ul class="list-disc pl-6 text-white/80 leading-relaxed text-sm space-y-1">
+<li>
+  客户端下载：前往
+  <a href="https://qixueonline.my" 
+     style="text-decoration: underline; color: #ffcc33;"
+     onmouseover="this.style.color='#fff';" 
+     onmouseout="this.style.color='#ffcc33';">
+    官网页面
+  </a>，
+  选择【客户端下载】。
+</li>
+<li>
+  WINRAR解压器下载：
+  <a href="https://www.win-rar.com/download.html" 
+     style="text-decoration: underline; color: #ffcc33;"
+     onmouseover="this.style.color='#fff';" 
+     onmouseout="this.style.color='#ffcc33';">
+    立即下载
+  </a>
+</li>
+<li>
+Windows 安装：使用WINRAR解压后；若被安全软件拦截，选择“仍要运行/信任此文件”。
+</li>
+<li>
+提醒事项：由于游戏采用专属启动器，部分安全软件或杀毒程序可能会误判为异常文件。为确保顺利运行，请在解压或安装前，将整个游戏文件夹加入到防毒软件的信任区 / 白名单中，以避免文件被拦截或误删，造成启动失败。
+</li>
+<li>
+版本更新：若 GM 发布服务器更新，请务必先关闭所有正在运行的游戏程序（如 elementclient.exe），再重新打开登录器以进行更新。若在更新过程中仍保持登录器或游戏程序开启，可能导致补丁更新中断或文件损坏。一旦出现此情况，建议重新解压整个游戏文件夹后再启动游戏。
+</li>
+<li>
+          白名单设置（建议解压前完成）：为避免安装或运行时被安全软件误删，请在解压前将游戏文件夹加入 Windows Defender 的白名单。步骤：
+          <ol style="list-style: decimal; padding-left: 1.2em; margin-top: .25em;">
+            <li>在开始菜单搜索 <b>Virus &amp; threat protection</b> 并打开。</li>
+            <li>进入 <b>Manage settings（管理设置）</b>。</li>
+            <li>下滑到 <b>Exclusions（排除项）</b>，点击 <b>Add or remove exclusions（添加或移除排除项）</b>。</li>
+            <li>点击 <b>Add an exclusion（添加排除项）</b>，选择 <b>Folder（文件夹）</b>。</li>
+            <li>添加 <b>整个游戏文件夹</b> 或所在磁盘（如 <b>D:\</b>）。</li>
+          </ol>
+        </li>
+<li>
+账号与启动：在登陆器【Qixueonline】内注册账号后，点击“开始游戏”。如无法启动，请联系FACEBOOK在线客服。
+</li>
+</ul>
+<p class="mt-3 text-white/60 text-xs">
+提示：安装/解压前请保持磁盘剩余空间≥5GB，尽量放在非系统盘（如 D:/Games/）。
+</p>
+</article>
+<article class="glass rounded-2xl p-6 border border-white/10 mb-10">
+<h2 class="text-xl font-semibold mb-3">
+常见问题（FAQ）
+</h2>
+<div class="space-y-3">
+<p class="text-white font-semibold">
+· 注册账号问题
+</p>
+<p class="text-white/80 leading-relaxed text-sm pl-4">
+登陆器注册账号，建议QQ邮箱填入手机号码，避免账号丢失，验证码填入右侧的算数答案即可。例：55-5= 50(验证码)
+</p>
+<p class="text-white font-semibold">
+· 杀毒软件误报
+</p>
+<p class="text-white/80 leading-relaxed text-sm pl-4">
+请添加到白名单后重试。我们仅对启动器进行壳压缩与完整性校验，不含恶意代码。
+</p>
+<p class="text-white font-semibold">
+· 进游戏卡顿
+</p>
+<p class="text-white/80 leading-relaxed text-sm pl-4">
+将画质调低、关闭动态效果与大范围技能数字显示；确保独显模式运行并关闭后台占用。
+</p>
+<p class="text-white font-semibold">
+· 无法进入服务器
+</p>
+<p class="text-white/80 leading-relaxed text-sm pl-4">
+查看官网公告是否维护；检查本地时间同步；确认版本号与补丁为最新。
+</p>
+<p class="text-white font-semibold">
+· 丢失文件/资源
+</p>
+<p class="text-white/80 leading-relaxed text-sm pl-4">
+重新解压或覆盖最新补丁至根目录；若路径含中文或空格，建议改为英文路径。
+</p>
+</div>
+</article>
+
+
+<div class="text-center mt-12">
+  <a
+    class="inline-block px-5 py-3 bg-white text-black rounded-2xl hover:opacity-90"
+    href="index.html"
+  >
+    返回首页
+  </a>
+
+</div>
+</div>
+</section>
+<footer class="py-10 border-t border-white/10 text-sm">
+<div class="max-w-6xl mx-auto px-4 lg:px-6 flex flex-col md:flex-row items-center justify-between gap-3 text-white/60">
+<div>
+     ©
+     <span id="y">
+</span>
+     运营团队 · 保留所有权利
+    </div>
+<div class="flex items-center gap-4">
+<a class="hover:opacity-80" href="/privacy.html">
+      隐私政策
+     </a>
+<a class="hover:opacity-80" href="/terms.html">
+      服务条款
+     </a>
+</div>
+</div>
+</footer>
+<script>
+   // 年份 & 移动菜单
+    document.getElementById('y').textContent = new Date().getFullYear();
+    const btn = document.getElementById('menuBtn');
+    const menu = document.getElementById('mobileMenu');
+    btn && btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+  </script>
+<!-- 可替换为你的 GA/像素脚本 -->
+<!-- <script>/* Google Analytics */</script> -->
+<script>
+(function(){
+  const box = document.getElementById('guideSearch');
+  const clearBtn = document.getElementById('guideClear');
+  const countEl = document.getElementById('guideCount');
+  const cards = Array.from(document.querySelectorAll('#guidepage article'));
+  if (!box || !clearBtn || !countEl || !cards.length) return;
+
+  // unmark all highlights inside an element
+  function unmark(el){
+    // unwrap all <mark class="guide-hit">
+    el.querySelectorAll('mark.guide-hit').forEach(mark => {
+      const text = document.createTextNode(mark.textContent);
+      const parent = mark.parentNode;
+      parent.replaceChild(text, mark);
+      parent.normalize();
+    });
+  }
+
+  // add highlight for query within a card
+  function highlight(el, q){
+    if (!q) return;
+    const safe = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const re = new RegExp(safe, 'gi');
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+    const nodes = [];
+    while (walker.nextNode()) {
+      const t = walker.currentNode;
+      if (t.nodeValue && re.test(t.nodeValue)) nodes.push(t);
+    }
+    nodes.forEach(t => {
+      const span = document.createElement('span');
+      span.innerHTML = t.nodeValue.replace(re, m => `<mark class="guide-hit">${m}</mark>`);
+      t.parentNode.replaceChild(span, t);
+    });
+  }
+
+  function apply(){
+    const q = box.value.trim();
+    let visible = 0;
+    cards.forEach(card => {
+      // reset card
+      unmark(card);
+      if (!q) {
+        card.style.display = '';
+        visible++;
+        return;
+      }
+      const hay = (card.textContent || '').toLowerCase();
+      const needle = q.toLowerCase();
+      if (hay.includes(needle)) {
+        card.style.display = '';
+        highlight(card, q);
+        visible++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+    countEl.textContent = String(visible);
+  }
+
+  let composing = false;
+  let timer = null;
+  box.addEventListener('compositionstart', () => { composing = true; });
+  box.addEventListener('compositionend', () => { composing = false; apply(); });
+  box.addEventListener('input', () => {
+    if (composing) return;
+    clearTimeout(timer);
+    timer = setTimeout(apply, 120);
+  });
+
+  // One-click clear
+  clearBtn.addEventListener('click', () => {
+    box.value = '';
+    clearTimeout(timer);
+    composing = false;
+    apply();
+    box.focus();
+  });
+
+  // Keyboard helpers
+  box.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { clearTimeout(timer); apply(); }
+    if (e.key === 'Escape') { clearBtn.click(); }
+  });
+
+  // first render
+  apply();
+})();
+</script><script>
+(function() {
+  // 自动将【】包裹的内容变成亮青色
+  const paras = document.querySelectorAll('#guidepage p');
+  paras.forEach(p => {
+    if (p.innerHTML.includes('【') && p.innerHTML.includes('】')) {
+      p.innerHTML = p.innerHTML.replace(/【(.*?)】/g, '<span class="auto-cyan">【$1】</span>');
+    }
+  });
+})();
+</script><script>
+(function() {
+  // 自动将 [] 包裹的内容变成红色
+  const paras = document.querySelectorAll('#guidepage p');
+  paras.forEach(p => {
+    // 跳过已经在 <span> 内的 []，尽量减少重复包裹
+    const html = p.innerHTML;
+    if (html.includes('[') && html.includes(']')) {
+      // 先避免对已存在 .auto-red 的重复处理
+      const tmp = html.replace(/\[(.*?)\]/g, (m, g1) => { return `<span class=\"auto-red\">${g1}</span>`; });
+      p.innerHTML = tmp;
+    }
+  });
+})();
+</script></body>
+</html>
