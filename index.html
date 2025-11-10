@@ -139,7 +139,7 @@ h1, h2, h3 {
   <header class="fixed inset-x-0 top-0 z-50 bg-[#0b0f1a]/70 backdrop-blur border-b border-white/10">
     <div class="max-w-6xl mx-auto px-4 lg:px-6 h-16 flex items-center justify-between">
       <a href="#home" class="flex items-center gap-3 group">
-        <picture><img loading="eager" decoding="async" src="logo.png" alt="logo" class="w-8 h-8 rounded-lg object-cover border border-white/20 shadow-md"  fetchpriority="high"></picture>
+        <picture><source srcset="logo.webp" type="image/webp"><img loading="eager" decoding="async" src="logo.png" alt="logo" class="w-8 h-8 rounded-lg object-cover border border-white/20 shadow-md"  fetchpriority="high"></picture>
         <span class="font-semibold tracking-wide group-hover:opacity-90">苍穹大陆 · 武林外传</span>
       </a>
       <nav class="hidden md:flex items-center gap-6 text-sm">
@@ -320,17 +320,59 @@ h1, h2, h3 {
              style="scrollbar-width:none;-ms-overflow-style:none;">
 <div class="min-w-[360px] md:min-w-[420px] snap-start">
             <div class="aspect-video rounded-2xl bg-white/5 border border-white/10 overflow-hidden">
-              <picture><img loading="lazy" decoding="async" alt="截图 1" class="w-full h-full object-cover" src="pic 1.jpg" /></picture>
+              <picture><source srcset="pic 1.webp" type="image/webp"><img loading="lazy" decoding="async" alt="截图 1" class="w-full h-full object-cover" src="pic 1.jpg" /></picture>
             </div>
           </div>
 </div>
       </div>
 
-      <p class="mt-3 text-sm text-white/60">左右点击箭头或滑动浏览更多。欢迎玩家投稿高清截图展示！</p>
+      
+      <p class="mt-3 text-sm text-white/60">左右点击箭头或滑动浏览更多游戏截图。</p>
+      <div class="mt-6">
+        <a href="vip.html"
+           class="glass rounded-2xl px-4 py-2 border border-white/10 hover:bg-white/10 inline-flex items-center justify-center">
+          【VIP订制坐骑展示入口】
+        </a>
+      </div>
+
     </div>
   </section>
 
-  <!-- 新手指南 / FAQ -->
+  <!-- VIP订制坐骑（无限循环轮播） -->
+  <section id="vip-mounts" class="section py-16 border-t border-white/10">
+    <div class="max-w-6xl mx-auto px-4 lg:px-6 relative">
+      <h2 class="text-2xl font-semibold mb-6">【VIP订制坐骑】</h2>
+
+      <div class="relative">
+        <!-- 边缘渐隐 -->
+        <div class="pointer-events-none absolute left-0 top-0 bottom-0 w-16 z-10"
+             style="background:linear-gradient(90deg, rgba(11,15,26,0.9), rgba(11,15,26,0));"></div>
+        <div class="pointer-events-none absolute right-0 top-0 bottom-0 w-16 z-10"
+             style="background:linear-gradient(270deg, rgba(11,15,26,0.9), rgba(11,15,26,0));"></div>
+
+        <!-- 控制按钮 -->
+        <button id="vipPrev" aria-label="上一张"
+                class="absolute left-0 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/40 hover:bg-black/60 border border-white/20 backdrop-blur">‹</button>
+        <button id="vipNext" aria-label="下一张"
+                class="absolute right-0 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/40 hover:bg-black/60 border border-white/20 backdrop-blur">›</button>
+
+        <!-- 轨道 -->
+        <div id="vipTrack"
+             class="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2"
+             style="scrollbar-width:none;-ms-overflow-style:none;">
+<div class="min-w-[360px] md:min-w-[420px] snap-start">
+            <div class="aspect-video rounded-2xl bg-white/5 border border-white/10 overflow-hidden">
+              <picture><source srcset="vip 1.webp" type="image/webp"><img loading="lazy" decoding="async" alt="VIP坐骑 1" class="w-full h-full object-cover" src="vip 1.jpg" /></picture>
+            </div>
+          </div>
+</div>
+      </div>
+
+      <p class="mt-3 text-sm text-white/60">左右点击箭头或滑动浏览更多。【VIP8】玩家可凭VIP坐骑兑换券兑换【订制坐骑】</p>
+    </div>
+  </section>
+  
+    <!-- 新手指南 / FAQ -->
   <section id="guide" class="section py-16 border-t border-white/10">
     <div class="max-w-6xl mx-auto px-4 lg:px-6 grid lg:grid-cols-2 gap-8">
       <div>
@@ -417,7 +459,7 @@ h1, h2, h3 {
         <div class="glass rounded-2xl p-6 border border-white/10">
           <h3 class="font-medium">线上充值</h3>
           <p class="mt-2 text-sm text-white/80">支持以下方式支付。转账后联系FACEBOOK客服展示单据以及提供账号ID，充值后请在游戏内邮件查收。</p>
-          <picture><img loading="lazy" decoding="async" src="topup.png" alt="topup" class="rounded-xl mb-4" style="max-width:100%; width:auto; height:auto; display:block; image-rendering:auto; object-fit:contain;" /></picture>
+          <picture><source srcset="topup.webp" type="image/webp"><img loading="lazy" decoding="async" src="topup.png" alt="topup" class="rounded-xl mb-4" style="max-width:100%; width:auto; height:auto; display:block; image-rendering:auto; object-fit:contain;" /></picture>
           <p class="mt-2 text-sm text-white/80">USDT汇率Rate:<a class="underline" href="#support">联系客服</a></p>
           <p class="mt-2 text-sm textwhite/80">支付宝汇率Rate:<a class="underline" href="#support">联系客服</a></p>
           <a class="mt-3 inline-block px-4 py-2 rounded-xl bg-white text-black" href="/topup">前往充值</a>
@@ -434,7 +476,7 @@ h1, h2, h3 {
 
         <!-- 二维码盒：线上充值 -->
         <div class="mt-6 glass rounded-2xl p-4 border border-white/10 flex items-center gap-4">
-          <picture><img loading="lazy" decoding="async" src="qrcode1.jpg" alt="充值二维码" style="width:100%;max-width:350px;display:block;margin:20px auto;border-radius:12px;"></picture>
+          <picture><source srcset="qrcode1.webp" type="image/webp"><img loading="lazy" decoding="async" src="qrcode1.jpg" alt="充值二维码" style="width:100%;max-width:350px;display:block;margin:20px auto;border-radius:12px;"></picture>
           <div class="text-sm textwhite/80">
             <div class="font-medium">扫码充值</div>
             <div class="textwhite/60">请使用支付App扫码完成转账</div>
@@ -443,7 +485,7 @@ h1, h2, h3 {
 
         <!-- 二维码盒：线上充值 -->
         <div class="mt-6 glass rounded-2xl p-4 border border-white/10 flex items-center gap-4">
-          <picture><img loading="lazy" decoding="async" src="qrcode2.jpg" alt="充值二维码" style="width:100%;max-width:350px;display:block;margin:20px auto;border-radius:12px;"></picture>
+          <picture><source srcset="qrcode2.webp" type="image/webp"><img loading="lazy" decoding="async" src="qrcode2.jpg" alt="充值二维码" style="width:100%;max-width:350px;display:block;margin:20px auto;border-radius:12px;"></picture>
           <div class="text-sm textwhite/80">
             <div class="font-medium">扫码充值</div>
             <div class="textwhite/60">请使用支付App扫码完成转账</div>
@@ -545,7 +587,7 @@ h1, h2, h3 {
         img.alt = img.alt.replace(/\d+$/, String(idx));
       }
       if (webp) {
-        const webpUrl = encodeURI(BASE + idx + ".jpg");
+        const webpUrl = encodeURI(BASE + idx + ".webp");
         webp.setAttribute('srcset', webpUrl);
       }
     }

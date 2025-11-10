@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VIP订制坐骑 · 展示</title>
+  <meta name="description" content="VIP订制坐骑画廊：标题、说明文字、图片展示（轮播+滑动），沿用主页黑金玻璃风样式。" />
+  <link rel="icon" href="/favicon.ico" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root { --gold:#ffffff; --gold-soft:rgba(255,255,255,.85); --gold-glow:rgba(255,255,255,.4); }
+    .glass,.card,.rounded-2xl,.border{
+      border:2px solid var(--gold-soft)!important;
+      box-shadow:0 0 18px var(--gold-glow),0 0 10px rgba(255,255,255,.5),inset 0 0 6px rgba(255,255,255,.3);
+    }
+    h1,h2{ position:relative; color:#fff; text-shadow:0 0 12px rgba(255,255,255,.7); }
+    h1::after,h2::after{ content:""; position:absolute; bottom:-8px; left:0; width:100px; height:3px;
+      background:linear-gradient(90deg,#d4af37,transparent); box-shadow:0 0 15px var(--gold-glow); }
+    body{ background-image:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),url('bg.jpg');
+      background-repeat:no-repeat,no-repeat; background-position:center top,center top; background-size:auto,cover; background-attachment:fixed,fixed; }
+    .glass{ background-color:rgba(0,0,0,.4)!important; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+      box-shadow:0 0 12px rgba(255,255,255,.08), inset 0 0 4px rgba(255,255,255,.05); }
+    #vipTrack::-webkit-scrollbar{ display:none; }
+    @media (max-width:1023px){ body{ background-attachment:scroll!important; } }
+  </style>
+</head>
+<body class="bg-[#0b0f1a] text-white">
+  <header class="fixed inset-x-0 top-0 z-50 bg-[#0b0f1a]/70 backdrop-blur border-b border-white/10">
+    <div class="max-w-6xl mx-auto px-4 lg:px-6 h-16 flex items-center justify-between">
+      <a href="/#home" class="flex items-center gap-3 group">
+        <img src="logo.jpg" alt="logo" class="w-8 h-8 rounded-lg object-cover border border-white/20 shadow-md">
+        <span class="font-semibold tracking-wide group-hover:opacity-90">苍穹大陆 · 武林外传</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-6 text-sm">
+        <a class="hover:opacity-80" href="/#news">公告</a>
+        <a class="hover:opacity-80" href="/#play">开始游戏</a>
+        <a class="hover:opacity-80" href="/#guide">新手指南</a>
+        <a class="hover:opacity-80" href="/#features">特色</a>
+        <a class="hover:opacity-80" href="/#screens">截图</a>
+        <span class="opacity-90">VIP订制坐骑</span>
+        <a class="hover:opacity-80" href="/#topup">充值</a>
+        <a class="hover:opacity-80" href="/#support">客服</a>
+      </nav>
+      <div class="flex items-center gap-2">
+        <a class="px-3 py-2 text-sm rounded-xl bg-white/90 text-black hover:bg-white" href="/#home">返回主页</a>
+        <button id="menuBtn" aria-label="menu" class="md:hidden p-2 rounded-lg hover:bg-white/10">
+          <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="pt-28 pb-16">
+    <section class="max-w-6xl mx-auto px-4 lg:px-6">
+      <h1 class="text-3xl md:text-4xl font-bold">【VIP订制坐骑】展示</h1>
+      <p class="mt-4 text-white/80 max-w-3xl">VIP 订制坐骑 ，升级至VIP8 使用【订制坐骑兑换券】兑换坐骑
+      </p>
+    </section>
+
+    <section class="mt-8">
+      <div class="max-w-6xl mx-auto px-4 lg:px-6 relative">
+        <div class="pointer-events-none absolute left-0 top-0 bottom-0 w-16 z-10"
+             style="background:linear-gradient(90deg, rgba(11,15,26,0.95), rgba(11,15,26,0));"></div>
+        <div class="pointer-events-none absolute right-0 top-0 bottom-0 w-16 z-10"
+             style="background:linear-gradient(270deg, rgba(11,15,26,0.95), rgba(11,15,26,0));"></div>
+
+        <button id="vipPrev" aria-label="上一张"
+                class="absolute left-0 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/40 hover:bg-black/60 border border-white/20 backdrop-blur">‹</button>
+        <button id="vipNext" aria-label="下一张"
+                class="absolute right-0 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/40 hover:bg-black/60 border border-white/20 backdrop-blur">›</button>
+
+        <div id="vipTrack" class="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2"
+             style="scrollbar-width:none;-ms-overflow-style:none;">
+          <div class="min-w-[360px] md:min-w-[420px] snap-start">
+            <div class="aspect-video rounded-2xl glass overflow-hidden">
+              <img loading="lazy" decoding="async" alt="VIP坐骑 1" class="w-full h-full object-cover" src="vip 1.jpg" />
+            </div>
+          </div>
+        </div>
+
+        <p class="mt-3 text-sm text-white/60">请谨慎选择，若玩家已兑换不接受二次退换。</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="py-10 border-t border-white/10 text-sm">
+    <div class="max-w-6xl mx-auto px-4 lg:px-6 text-white/60">
+      © <span id="y"></span> 运营团队 · VIP订制坐骑
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+    const btn = document.getElementById('menuBtn');
+    const menu = document.getElementById('mobileMenu');
+    btn && btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+  </script>
+
+  <script>
+    (function(){
+      const track = document.getElementById('vipTrack');
+      const prev  = document.getElementById('vipPrev');
+      const next  = document.getElementById('vipNext');
+      if (!track || !prev || !next) return;
+
+      const GAP_PX = 16;
+      const UNIQUE = 13;
+
+      function cardWidth(){
+        const first = track.querySelector('.min-w-\[360px\]') || track.firstElementChild;
+        if (!first) return 400;
+        const { width } = first.getBoundingClientRect();
+        return Math.round(width + GAP_PX);
+      }
+
+      let firstCard = track.firstElementChild;
+      if (firstCard){
+        for (let i=2; i<=UNIQUE; i++){
+          const clone = firstCard.cloneNode(true);
+          const img  = clone.querySelector('img');
+          if (img){ img.src = encodeURI(`vip ${i}.jpg`); img.alt = `VIP坐骑 ${i}`; }
+          track.appendChild(clone);
+        }
+      }
+
+      const N = Math.max(1, UNIQUE);
+      const cards = Array.from(track.children);
+      const prefix = cards.map(c => c.cloneNode(true));
+      const suffix = cards.map(c => c.cloneNode(true));
+      for (let i=prefix.length-1; i>=0; i--){ track.insertBefore(prefix[i], track.firstChild); }
+      suffix.forEach(c => track.appendChild(c));
+
+      let step = cardWidth();
+      function jumpToMiddle(instantIndex=0){ track.scrollTo({ left:(N+instantIndex)*step, behavior:'instant' }); }
+      jumpToMiddle(0);
+      function scrollOne(dir){ track.scrollBy({ left:dir*step, behavior:'smooth' }); }
+      prev.addEventListener('click', ()=>scrollOne(-1));
+      next.addEventListener('click', ()=>scrollOne( 1));
+
+      let ticking = false;
+      track.addEventListener('scroll', ()=>{
+        if (ticking) return; ticking = true;
+        requestAnimationFrame(()=>{
+          step = cardWidth();
+          const index = Math.round(track.scrollLeft/step);
+          if (index < N){
+            track.scrollTo({ left:(N + index)*step, behavior:'instant' });
+          } else if (index >= 2*N){
+            track.scrollTo({ left:(index - 2*N + N)*step, behavior:'instant' });
+          }
+          ticking = false;
+        });
+      });
+
+      window.addEventListener('resize', ()=>{
+        const i = Math.round(track.scrollLeft/step) - N;
+        step = cardWidth();
+        jumpToMiddle(Math.max(0, Math.min(N-1, i)));
+      });
+    })();
+  </script>
+</body>
+</html>
