@@ -139,7 +139,7 @@ h1, h2, h3 {
   <header class="fixed inset-x-0 top-0 z-50 bg-[#0b0f1a]/70 backdrop-blur border-b border-white/10">
     <div class="max-w-6xl mx-auto px-4 lg:px-6 h-16 flex items-center justify-between">
       <a href="#home" class="flex items-center gap-3 group">
-        <picture><source srcset="logo.webp" type="image/webp"><img loading="eager" decoding="async" src="logo.png" alt="logo" class="w-8 h-8 rounded-lg object-cover border border-white/20 shadow-md"  fetchpriority="high"></picture>
+        <picture><img loading="eager" decoding="async" src="logo.png" alt="logo" class="w-8 h-8 rounded-lg object-cover border border-white/20 shadow-md"  fetchpriority="high"></picture>
         <span class="font-semibold tracking-wide group-hover:opacity-90">苍穹大陆 · 武林外传</span>
       </a>
       <nav class="hidden md:flex items-center gap-6 text-sm">
@@ -320,7 +320,7 @@ h1, h2, h3 {
              style="scrollbar-width:none;-ms-overflow-style:none;">
 <div class="min-w-[360px] md:min-w-[420px] snap-start">
             <div class="aspect-video rounded-2xl bg-white/5 border border-white/10 overflow-hidden">
-              <picture><source srcset="pic 1.webp" type="image/webp"><img loading="lazy" decoding="async" alt="截图 1" class="w-full h-full object-cover" src="pic 1.jpg" /></picture>
+              <picture><img loading="lazy" decoding="async" alt="截图 1" class="w-full h-full object-cover" src="pic 1.jpg" /></picture>
             </div>
           </div>
 </div>
@@ -417,7 +417,7 @@ h1, h2, h3 {
         <div class="glass rounded-2xl p-6 border border-white/10">
           <h3 class="font-medium">线上充值</h3>
           <p class="mt-2 text-sm text-white/80">支持以下方式支付。转账后联系FACEBOOK客服展示单据以及提供账号ID，充值后请在游戏内邮件查收。</p>
-          <picture><source srcset="topup.webp" type="image/webp"><img loading="lazy" decoding="async" src="topup.png" alt="topup" class="rounded-xl mb-4" style="max-width:100%; width:auto; height:auto; display:block; image-rendering:auto; object-fit:contain;" /></picture>
+          <picture><img loading="lazy" decoding="async" src="topup.png" alt="topup" class="rounded-xl mb-4" style="max-width:100%; width:auto; height:auto; display:block; image-rendering:auto; object-fit:contain;" /></picture>
           <p class="mt-2 text-sm text-white/80">USDT汇率Rate:<a class="underline" href="#support">联系客服</a></p>
           <p class="mt-2 text-sm textwhite/80">支付宝汇率Rate:<a class="underline" href="#support">联系客服</a></p>
           <a class="mt-3 inline-block px-4 py-2 rounded-xl bg-white text-black" href="/topup">前往充值</a>
@@ -434,7 +434,7 @@ h1, h2, h3 {
 
         <!-- 二维码盒：线上充值 -->
         <div class="mt-6 glass rounded-2xl p-4 border border-white/10 flex items-center gap-4">
-          <picture><source srcset="qrcode1.webp" type="image/webp"><img loading="lazy" decoding="async" src="qrcode1.jpg" alt="充值二维码" style="width:100%;max-width:350px;display:block;margin:20px auto;border-radius:12px;"></picture>
+          <picture><img loading="lazy" decoding="async" src="qrcode1.jpg" alt="充值二维码" style="width:100%;max-width:350px;display:block;margin:20px auto;border-radius:12px;"></picture>
           <div class="text-sm textwhite/80">
             <div class="font-medium">扫码充值</div>
             <div class="textwhite/60">请使用支付App扫码完成转账</div>
@@ -443,7 +443,7 @@ h1, h2, h3 {
 
         <!-- 二维码盒：线上充值 -->
         <div class="mt-6 glass rounded-2xl p-4 border border-white/10 flex items-center gap-4">
-          <picture><source srcset="qrcode2.webp" type="image/webp"><img loading="lazy" decoding="async" src="qrcode2.jpg" alt="充值二维码" style="width:100%;max-width:350px;display:block;margin:20px auto;border-radius:12px;"></picture>
+          <picture><img loading="lazy" decoding="async" src="qrcode2.jpg" alt="充值二维码" style="width:100%;max-width:350px;display:block;margin:20px auto;border-radius:12px;"></picture>
           <div class="text-sm textwhite/80">
             <div class="font-medium">扫码充值</div>
             <div class="textwhite/60">请使用支付App扫码完成转账</div>
@@ -545,7 +545,7 @@ h1, h2, h3 {
         img.alt = img.alt.replace(/\d+$/, String(idx));
       }
       if (webp) {
-        const webpUrl = encodeURI(BASE + idx + ".webp");
+        const webpUrl = encodeURI(BASE + idx + ".jpg");
         webp.setAttribute('srcset', webpUrl);
       }
     }
