@@ -204,12 +204,38 @@ h1, h2, h3 {
         </div>
       </div>
       <div class="relative">
-        <video class="aspect-video rounded-2xl border border-white/10 overflow-hidden bg-white/5"
-               controls playsinline src="cg.mp4" preload="none">你的浏览器不支持视频播放。</video>
-        <p style="color:rgba(255,255,255,0.7); font-size:14px; text-align:center; margin-top:8px;">
-          祈雪工作室2025新作《苍穹大陆：武林外传》全新篇章宣传视频
-        </p>
-      </div>
+<div class="relative group w-full max-w-[800px] mx-auto">
+  <!-- 封面 -->
+  <div id="video-cover" 
+       class="absolute inset-0 flex items-center justify-center cursor-pointer bg-black/40 z-10">
+    <img src="cover.png" alt="封面" class="w-full h-full object-cover absolute inset-0">
+  </div>
+
+  <!-- 视频 -->
+  <video id="main-video" 
+         class="rounded-2xl border border-white/10 overflow-hidden bg-white/5 w-full"
+         src="cg.mp4" 
+         preload="none" 
+         controls 
+         playsinline 
+         poster="cover.png">
+		 style="object-fit: cover;">
+  </video>
+</div>
+
+<script>
+  const video = document.getElementById("main-video");
+  const cover = document.getElementById("video-cover");
+
+  cover.addEventListener("click", () => {
+    cover.style.display = "none"; // 点击后隐藏封面
+    video.play(); // 直接播放视频
+  });
+</script>
+  <p style="color:rgba(255,255,255,0.7); font-size:14px; text-align:center; margin-top:8px;">
+    祈雪工作室2025新作《苍穹大陆：武林外传》全新篇章宣传视频
+  </p>
+</div>
     </div>
   </section>
 
