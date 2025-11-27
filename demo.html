@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>大师兄线下门店 · 充值管理系统 Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-light: #111827;
+      --card: #020617;
+      --accent: #22c55e;
+      --accent-soft: rgba(34, 197, 94, 0.12);
+      --border: rgba(148, 163, 184, 0.35);
+      --text-main: #e5e7eb;
+      --text-soft: #9ca3af;
+      --danger: #f97373;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top, #1e293b 0, #020617 40%, #000 100%);
+      color: var(--text-main);
+    }
+
+    .login-wrapper {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .card {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      padding: 24px;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(18px);
+    }
+
+    .card-lg {
+      max-width: 1120px;
+      width: 100%;
+    }
+
+    .card-sm {
+      max-width: 380px;
+      width: 100%;
+    }
+
+    h1, h2, h3, h4 {
+      margin: 0;
+      font-weight: 600;
+      letter-spacing: .02em;
+    }
+
+    .muted {
+      color: var(--text-soft);
+      font-size: 13px;
+    }
+
+    label {
+      font-size: 13px;
+      margin-bottom: 4px;
+      display: block;
+      color: var(--text-soft);
+    }
+
+    input, select {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.8);
+      color: var(--text-main);
+      font-size: 14px;
+      outline: none;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.3);
+    }
+
+    button {
+      border-radius: 999px;
+      border: none;
+      padding: 8px 16px;
+      font-size: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: #022c22;
+      font-weight: 600;
+      box-shadow: 0 12px 30px rgba(34, 197, 94, 0.35);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text-main);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-soft);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 12px;
+    }
+
+    .btn-small {
+      padding: 4px 10px;
+      font-size: 12px;
+    }
+
+    .flex {
+      display: flex;
+    }
+
+    .flex-between {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .gap-2 { gap: 8px; }
+    .gap-3 { gap: 12px; }
+    .gap-4 { gap: 16px; }
+
+    .mt-1 { margin-top: 4px; }
+    .mt-2 { margin-top: 8px; }
+    .mt-3 { margin-top: 12px; }
+    .mt-4 { margin-top: 16px; }
+    .mt-6 { margin-top: 24px; }
+
+    .mb-1 { margin-bottom: 4px; }
+    .mb-2 { margin-bottom: 8px; }
+    .mb-3 { margin-bottom: 12px; }
+    .mb-4 { margin-bottom: 16px; }
+    .mb-6 { margin-bottom: 24px; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 2px 10px;
+      font-size: 11px;
+      color: var(--accent);
+      background: var(--accent-soft);
+      border: 1px solid rgba(34, 197, 94, 0.7);
+    }
+
+    .app-wrapper {
+      display: none;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 240px;
+      background: linear-gradient(180deg, #020617 0, #020617 50%, #020617 100%);
+      border-right: 1px solid rgba(31, 41, 55, 0.8);
+      padding: 16px 14px;
+    }
+
+    .sidebar-logo {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .sidebar-logo span {
+      color: var(--accent);
+    }
+
+    .nav-group-title {
+      font-size: 11px;
+      color: var(--text-soft);
+      margin: 10px 4px 6px;
+    }
+
+    .nav-item {
+      padding: 8px 10px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--text-soft);
+      cursor: pointer;
+      margin-bottom: 4px;
+    }
+
+    .nav-item.active {
+      background: rgba(34, 197, 94, 0.12);
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .nav-item:hover {
+      background: rgba(148, 163, 184, 0.16);
+    }
+
+    .main {
+      flex: 1;
+      padding: 16px;
+    }
+
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .pill {
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 12px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+    }
+
+    .stat-card {
+      padding: 14px;
+      border-radius: 16px;
+      background: radial-gradient(circle at top left, rgba(34, 197, 94, 0.14), rgba(15, 23, 42, 0.9));
+      border: 1px solid rgba(148, 163, 184, 0.45);
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .stat-value {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .table th, .table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.9);
+    }
+
+    .table th {
+      text-align: left;
+      color: var(--text-soft);
+      font-weight: 500;
+    }
+
+    .table tbody tr:hover {
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .tag {
+      font-size: 11px;
+      border-radius: 999px;
+      padding: 2px 8px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--text-soft);
+    }
+
+    .tag-success {
+      color: var(--accent);
+      border-color: rgba(34, 197, 94, 0.7);
+      background: rgba(34, 197, 94, 0.1);
+    }
+
+    .tag-warn {
+      color: #fbbf24;
+      border-color: rgba(251, 191, 36, 0.7);
+      background: rgba(251, 191, 36, 0.1);
+    }
+
+    .tag-danger {
+      color: #f97373;
+      border-color: rgba(248, 113, 113, 0.7);
+      background: rgba(248, 113, 113, 0.1);
+    }
+
+    .divider {
+      height: 1px;
+      background: radial-gradient(circle, rgba(148, 163, 184, .6), rgba(15, 23, 42, 0));
+      margin: 16px 0;
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 10px;
+    }
+
+    .hint {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    /* 玩家搜索列表 */
+    .player-list {
+      max-height: 180px;
+      overflow-y: auto;
+      border-radius: 12px;
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      background: rgba(15, 23, 42, 0.85);
+      margin-top: 6px;
+    }
+
+    .player-item {
+      padding: 8px 10px;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.9);
+      font-size: 13px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      cursor: pointer;
+    }
+
+    .player-item:last-child {
+      border-bottom: none;
+    }
+
+    .player-item:hover {
+      background: rgba(148, 163, 184, 0.1);
+    }
+
+    .player-item-id {
+      font-size: 11px;
+      color: #9ca3af;
+    }
+
+    .player-item-main {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .player-item-tag {
+      font-size: 11px;
+      border-radius: 999px;
+      padding: 1px 8px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: #9ca3af;
+    }
+
+    .player-item.selected {
+      background: rgba(34, 197, 94, 0.12);
+      border-left: 3px solid #22c55e;
+    }
+
+    .receipt-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 40;
+    }
+
+    .receipt-card {
+      width: 420px;
+      max-width: 95vw;
+      background: #f9fafb;
+      color: #111827;
+      border-radius: 18px;
+      padding: 18px 20px 20px;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55);
+      font-size: 13px;
+    }
+
+    .receipt-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .receipt-title {
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .receipt-status {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #dcfce7;
+      color: #166534;
+      border: 1px solid #16a34a;
+    }
+
+    .receipt-section-title {
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 10px;
+      margin-bottom: 4px;
+      color: #4b5563;
+    }
+
+    .receipt-grid {
+      display: grid;
+      grid-template-columns: auto auto;
+      gap: 4px 16px;
+    }
+
+    .receipt-label {
+      color: #6b7280;
+    }
+
+    .receipt-value {
+      font-weight: 500;
+    }
+
+    .receipt-amount-box {
+      margin-top: 8px;
+      padding: 8px 10px;
+      background: #f3f4f6;
+      border-radius: 10px;
+      border: 1px dashed #d1d5db;
+    }
+
+    .receipt-amount-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    .receipt-amount-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .receipt-qr {
+      margin-top: 10px;
+      padding: 8px;
+      border-radius: 12px;
+      border: 1px dashed #d1d5db;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .qr-placeholder {
+      width: 80px;
+      height: 80px;
+      border-radius: 10px;
+      border: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: #9ca3af;
+      background: repeating-linear-gradient(
+        45deg,
+        #f3f4f6,
+        #f3f4f6 4px,
+        #e5e7eb 4px,
+        #e5e7eb 8px
+      );
+    }
+
+    .receipt-footer-note {
+      margin-top: 8px;
+      font-size: 11px;
+      color: #6b7280;
+    }
+
+    .receipt-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      .receipt-card, .receipt-card * {
+      visibility: visible;
+      }
+      .receipt-card {
+        position: absolute;
+        inset: 20px;
+        margin: auto;
+        box-shadow: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+      }
+      .main {
+        padding: 10px;
+      }
+      .card-lg {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- 登录界面 -->
+<div class="login-wrapper" id="loginView">
+  <div class="card card-sm">
+    <div class="flex-between mb-3">
+      <div>
+        <div class="badge">大师兄线下门店 · Demo 原型</div>
+        <h2 class="mt-2">线下充值管理系统</h2>
+        <p class="muted mt-1">用于门店充值记账 + 老板后台对账监控（本页仅展示原型，不连真实数据库）。</p>
+      </div>
+    </div>
+
+    <div class="mt-3">
+      <label>账号 / Username</label>
+      <input id="loginUser" placeholder="例如：boss / staff01" />
+    </div>
+    <div class="mt-2">
+      <label>密码 / Password</label>
+      <input id="loginPass" type="password" placeholder="任意密码即可演示" />
+    </div>
+    <div class="mt-3 flex-between">
+      <span class="muted" style="font-size: 11px;">说明：此 Demo 不做真实账号校验，方便你给客户演示。</span>
+      <button class="btn-primary" onclick="fakeLogin()">进入系统</button>
+    </div>
+  </div>
+</div>
+
+<!-- 主应用界面 -->
+<div class="app-wrapper" id="appView">
+  <div class="sidebar">
+    <div class="flex-between mb-4">
+      <div class="sidebar-logo">大师兄<span>线下门店</span></div>
+      <span class="pill" style="font-size: 11px;">Demo 版</span>
+    </div>
+
+    <div class="nav-group-title">门店员工端</div>
+    <div id="navDashboard" class="nav-item active" onclick="showSection('dashboard', this)">
+      门店总览 Dashboard
+    </div>
+    <div id="navNewPlayer" class="nav-item" onclick="showSection('newPlayer', this)">
+      新玩家登记
+    </div>
+    <div id="navTopup" class="nav-item" onclick="showSection('topup', this)">
+      充值 & 扣款
+    </div>
+    <div id="navReports" class="nav-item" onclick="showSection('reports', this)">
+      报表 & 对账结构
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="nav-group-title">老板后台端</div>
+    <div id="navAdmin" class="nav-item" onclick="showSection('admin', this)">
+      老板后台总控台
+    </div>
+
+    <div class="divider"></div>
+    <div class="muted" style="font-size: 11px; margin-bottom: 4px;">当前登录 · Demo</div>
+    <div class="pill" style="font-size: 11px; display: inline-flex; align-items: center; gap: 6px;">
+      大师兄总部 · T0001
+    </div>
+    <div class="mt-2">
+      <button class="btn-ghost btn-small" onclick="logout()">退出登录</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="card card-lg">
+      <!-- 顶部标题 -->
+      <div class="flex-between mb-4">
+        <div>
+          <h2 id="sectionTitle">门店总览 Dashboard</h2>
+          <p class="muted mt-1" id="sectionDesc">
+            这是门店员工日常使用的总览页面，用于和客户解释系统整体结构与关键指标。
+          </p>
+        </div>
+        <div class="flex gap-2">
+          <span class="badge">大师兄线下门店 · 原型展示</span>
+        </div>
+      </div>
+
+      <!-- 门店总览 -->
+      <div class="section active" id="section-dashboard">
+        <div class="stat-grid mb-4">
+          <div class="stat-card">
+            <div class="flex-between mb-1">
+              <span class="stat-label">今日新增玩家</span>
+              <span class="tag tag-success">Demo 数据</span>
+            </div>
+            <div class="stat-value" id="statNewPlayers">3</div>
+            <div class="muted" style="font-size: 12px;">通过「手机号验证码 + 平台随机账号密码绑定」注册成功的玩家数。</div>
+          </div>
+          <div class="stat-card">
+            <div class="flex-between mb-1">
+              <span class="stat-label">今日线下收款 (RM)</span>
+            </div>
+            <div class="stat-value" id="statDeposit">310.00</div>
+            <div class="muted" style="font-size: 12px;">门店收现金 / 转账 / 钱包的总金额，仅在线下发生。</div>
+          </div>
+          <div class="stat-card">
+            <div class="flex-between mb-1">
+              <span class="stat-label">今日已充值入游戏 (RM)</span>
+            </div>
+            <div class="stat-value" id="statDeduct">300.00</div>
+            <div class="muted" style="font-size: 12px;">员工已在游戏平台实际帮玩家充值的总金额，方便与游戏后台对账。</div>
+          </div>
+          <div class="stat-card">
+            <div class="flex-between mb-1">
+              <span class="stat-label">玩家余额合计 (RM)</span>
+            </div>
+            <div class="stat-value" id="statBalance">10.00</div>
+            <div class="muted" style="font-size: 12px;">所有玩家在系统中未扣除的余额合计，可作为风险预警指标。</div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="grid-2">
+          <div>
+            <h4 class="mb-2">系统价值（给老板听的版本）</h4>
+            <p class="muted" style="font-size: 13px;">
+              【大师兄线下门店】系统把<strong>线下收钱</strong>与<strong>游戏内充值</strong>拆开来记账：<br/>
+              · 所有门店员工必须先在系统记录玩家付款，再在游戏中手动充值。<br/>
+              · 系统自动计算每个玩家的余额，用流水方式记录每一笔操作。<br/>
+              · 老板可以在后台用报表和对账功能，检查员工是否少充、多充、或者收了钱没充值。<br/>
+              · 每次完成充值，系统都会生成一张【充值成功小票】，可以打印出来或发给玩家手机。
+            </p>
+          </div>
+          <div>
+            <h4 class="mb-2">典型操作流程（门店端）</h4>
+            <ul class="muted" style="font-size: 13px; padding-left: 18px;">
+              <li>员工先去游戏平台生成随机账号密码</li>
+              <li>回到系统，用玩家手机号 + 验证码，绑定刚才的账号密码，系统自动送 RM10</li>
+              <li>玩家付款（例如 RM100），员工在系统记录线下收款</li>
+              <li>员工在游戏平台为玩家手动充值（例如 110 游戏币）</li>
+              <li>回到系统，从余额中扣除 110，生成一张【充值成功单】给玩家</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 新玩家登记 -->
+      <div class="section" id="section-newPlayer">
+        <h3 class="mb-2">新玩家登记流程 Demo · 门店员工端</h3>
+        <p class="muted" style="font-size: 13px;">
+          员工先在游戏平台生成随机账号密码 → 这里验证手机号 → 绑定账号密码 → 系统自动赠送 RM10。
+        </p>
+
+        <div class="grid-2 mt-3">
+          <div style="border-right: 1px solid rgba(31,41,55,0.9); padding-right: 12px;">
+            <h4 class="mb-2">Step 1 · 验证手机号</h4>
+            <div class="mb-2">
+              <label>玩家手机号</label>
+              <input id="npPhone" placeholder="例如：012-3456789" />
+            </div>
+            <div class="flex gap-2">
+              <button class="btn-outline btn-small" onclick="sendFakeCode()">发送验证码（Demo）</button>
+              <span class="hint" id="npCodeHint">演示用：这里不会真正发 SMS，只是展示流程。</span>
+            </div>
+            <div class="mt-2">
+              <label>验证码</label>
+              <input id="npCode" placeholder="输入 4~6 位验证码（Demo）" />
+            </div>
+            <div class="mt-2">
+              <button class="btn-primary btn-small" onclick="verifyStep()">下一步：绑定游戏平台账号</button>
+            </div>
+          </div>
+
+          <div style="padding-left: 12px;">
+            <h4 class="mb-2">Step 2 · 绑定游戏平台账号密码</h4>
+            <p class="hint mb-2" id="npStep2Hint">
+              请先完成左侧验证码验证，系统才允许绑定「大师兄游戏平台」生成的账号密码。
+            </p>
+
+            <div class="mb-2">
+              <label>所属游戏</label>
+              <select id="npGame" disabled>
+                <option value="GLB99">GLB99</option>
+                <option value="GLB88">GLB88</option>
+              </select>
+            </div>
+            <div class="mb-2">
+              <label>游戏平台随机账号</label>
+              <input id="npGameAccount" placeholder="例如：dsx12345" disabled />
+            </div>
+            <div class="mb-2">
+              <label>初始密码（随机）</label>
+              <input id="npGamePassword" placeholder="例如：t9K82p" disabled />
+            </div>
+            <p class="hint">
+              提示：账号与密码由游戏平台生成，<strong>玩家首登后需在游戏内自行修改密码</strong>（系统负责记账，不负责改密码）。
+            </p>
+            <div class="mt-2">
+              <button class="btn-primary btn-small" id="npSubmitBtn" onclick="completeNewPlayer()" disabled>
+                完成注册并自动赠送 RM10
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div id="npResult" style="display:none;">
+          <h4 class="mb-1">新玩家已创建 ✅</h4>
+          <p class="muted" style="font-size: 13px;">
+            这个界面可以给客户看：系统注册完，玩家手机号 + 游戏账号 + 初始密码一次性搞定，并且自动有 RM10 余额。
+          </p>
+          <div class="grid-2 mt-2">
+            <div>
+              <div class="field-row">
+                <div>
+                  <label>手机号</label>
+                  <div id="npResultPhone" class="pill"></div>
+                </div>
+                <div>
+                  <label>游戏</label>
+                  <div id="npResultGame" class="pill"></div>
+                </div>
+              </div>
+              <div class="field-row mt-2">
+                <div>
+                  <label>游戏账号</label>
+                  <div id="npResultAccount" class="pill"></div>
+                </div>
+                <div>
+                  <label>初始密码</label>
+                  <div id="npResultPassword" class="pill"></div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <label>系统初始余额</label>
+              <div class="stat-card" style="margin-top: 4px;">
+                <div class="stat-label">当前余额 (RM)</div>
+                <div class="stat-value" id="npResultBalance">10.00</div>
+                <div class="muted" style="font-size: 12px;">默认赠送 RM10（可在老板后台配置）。</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-3 flex gap-2">
+            <button class="btn-outline btn-small" onclick="showSection('topup', document.getElementById('navTopup'))">
+              直接进入 · 为该玩家充值
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 充值 & 扣款 -->
+      <div class="section" id="section-topup">
+        <h3 class="mb-2">线下收款 & 游戏扣款 Demo · 门店员工端</h3>
+        <p class="muted" style="font-size: 13px;">
+          这里演示：记录线下收款 → 员工去游戏里手动充值 → 回来扣除余额 → 自动生成【大师兄充值小票】。
+        </p>
+
+        <div class="grid-2 mt-3">
+          <div style="border-right: 1px solid rgba(31,41,55,0.9); padding-right: 12px;">
+            <h4 class="mb-2">Step 1 · 搜索并选择玩家</h4>
+            <div class="mb-2">
+              <label>搜索玩家（手机号 / 游戏账号关键字）</label>
+              <input id="topupSearch"
+                     placeholder="例如：012 / dsx"
+                     oninput="filterPlayerList()" />
+            </div>
+            <div id="topupPlayerList" class="player-list">
+              <!-- JS 渲染玩家列表 -->
+            </div>
+
+            <div class="field-row mt-2">
+              <div>
+                <label>手机号</label>
+                <div id="topupPhone" class="pill">-</div>
+              </div>
+              <div>
+                <label>游戏账号</label>
+                <div id="topupGameAccount" class="pill">-</div>
+              </div>
+            </div>
+            <div class="field-row mt-2">
+              <div>
+                <label>所属游戏</label>
+                <div id="topupGame" class="pill">-</div>
+              </div>
+              <div>
+                <label>当前余额 (RM)</label>
+                <div id="topupBalance" class="pill">0.00</div>
+              </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <h4 class="mb-2">Step 2 · 记录线下付款</h4>
+            <div class="mb-2">
+              <label>本次玩家线下付款 (RM)</label>
+              <input id="topupDeposit" type="number" placeholder="例如：100" />
+            </div>
+            <div class="mb-2">
+              <label>付款方式</label>
+              <select id="topupPayMethod">
+                <option>现金</option>
+                <option>TNG E-Wallet</option>
+                <option>DuitNow 转账</option>
+                <option>银行转账</option>
+              </select>
+            </div>
+            <button class="btn-primary btn-small" onclick="recordDeposit()">记录线下收款</button>
+            <p class="hint mt-1">正式系统会在后台生成 deposit 流水，方便老板查账。</p>
+          </div>
+
+          <div style="padding-left: 12px;">
+            <h4 class="mb-2">Step 3 · 已在游戏中充值 & 扣除余额</h4>
+            <p class="hint">
+              员工先去「大师兄游戏后台」帮玩家充值（例如 110 点），再回来这里从余额扣除 110，并生成充值小票。<br/>
+              扣款前系统会要求员工再输入一次手机号后 4 位，防止扣错玩家。
+            </p>
+            <div class="mb-2">
+              <label>本次已在游戏充值金额 (RM 或等值)</label>
+              <input id="topupDeductAmount" type="number" placeholder="例如：110" />
+            </div>
+            <button class="btn-primary btn-small" onclick="generateReceiptDemo()">扣除余额并生成充值小票（Demo）</button>
+
+            <div class="mt-3">
+              <h4 class="mb-1">最近一次操作预览</h4>
+              <p class="hint" id="topupPreview">暂无记录，可模拟一笔充值后查看效果。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 报表 & 对账结构 -->
+      <div class="section" id="section-reports">
+        <h3 class="mb-2">报表 & 对账结构 Demo · 门店 + 老板共用</h3>
+        <p class="muted" style="font-size: 13px;">
+          这里展示的是<strong>数据结构与玩法</strong>，正式上线后可以按日期、门店、员工、玩家进行筛选，并导出 Excel 给老板对账。
+        </p>
+
+        <h4 class="mt-3 mb-2">按门店汇总 · Branch Summary</h4>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>门店</th>
+            <th>新增玩家</th>
+            <th>线下收款 (RM)</th>
+            <th>已充值入游戏 (RM)</th>
+            <th>玩家余额合计 (RM)</th>
+            <th>差额 / 异常</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>T0001</td>
+            <td>3</td>
+            <td>310.00</td>
+            <td>300.00</td>
+            <td>10.00</td>
+            <td><span class="tag tag-success">正常</span></td>
+          </tr>
+          <tr>
+            <td>K0001</td>
+            <td>1</td>
+            <td>80.00</td>
+            <td>60.00</td>
+            <td>20.00</td>
+            <td><span class="tag tag-warn">需复核</span></td>
+          </tr>
+          </tbody>
+        </table>
+
+        <h4 class="mt-4 mb-2">按员工汇总 · Staff Summary</h4>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>员工</th>
+            <th>所属门店</th>
+            <th>处理玩家数</th>
+            <th>线下收款 (RM)</th>
+            <th>已充值 (RM)</th>
+            <th>差额</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>员工A</td>
+            <td>T0001</td>
+            <td>5</td>
+            <td>260.00</td>
+            <td>250.00</td>
+            <td><span class="tag">10.00（活动赠送）</span></td>
+          </tr>
+          <tr>
+            <td>员工B</td>
+            <td>K0001</td>
+            <td>2</td>
+            <td>130.00</td>
+            <td>110.00</td>
+            <td><span class="tag tag-warn">20.00（待查）</span></td>
+          </tr>
+          </tbody>
+        </table>
+
+        <div class="mt-3 flex-between">
+          <span class="hint">说明给客户听：正式系统可一键导出 Excel / CSV，用游戏平台导出的数据一起对账。</span>
+          <button class="btn-outline btn-small">导出报表（Demo 按钮）</button>
+        </div>
+      </div>
+
+      <!-- 老板后台总控台 -->
+      <div class="section" id="section-admin">
+        <h3 class="mb-2">老板后台总控台 Demo · 总部视角</h3>
+        <p class="muted" style="font-size: 13px;">
+          这一页就是专门给老板看的：从总部一次过看到所有门店、所有员工的情况，以及异常预警。
+        </p>
+
+        <div class="stat-grid mb-4">
+          <div class="stat-card">
+            <div class="flex-between mb-1">
+              <span class="stat-label">今日全网线下收款 (RM)</span>
+              <span class="tag tag-success">大师兄全门店</span>
+            </div>
+            <div class="stat-value">390.00</div>
+            <div class="muted" style="font-size: 12px;">所有门店线下收款合计（可与银行流水、钱包流水对上）。</div>
+          </div>
+          <div class="stat-card">
+            <div class="flex-between mb-1">
+              <span class="stat-label">今日全网已充值入游戏 (RM)</span>
+            </div>
+            <div class="stat-value">360.00</div>
+            <div class="muted" style="font-size: 12px;">所有门店已经在游戏内实际帮玩家充值的金额总和。</div>
+          </div>
+          <div class="stat-card">
+            <div class="flex-between mb-1">
+              <span class="stat-label">差额（正常应≈活动赠送）</span>
+            </div>
+            <div class="stat-value" style="color:#fbbf24;">30.00</div>
+            <div class="muted" style="font-size: 12px;">如果差额大于活动赠送预算，系统可自动标记为「疑似异常」。</div>
+          </div>
+          <div class="stat-card">
+            <div class="flex-between mb-1">
+              <span class="stat-label">当前所有玩家余额合计 (RM)</span>
+            </div>
+            <div class="stat-value">30.00</div>
+            <div class="muted" style="font-size: 12px;">所有玩家未扣除的余额。余额长期不为 0 的玩家，会进入老板预警列表。</div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <h4 class="mb-2">门店异常预警 · Branch Risk Monitor</h4>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>门店</th>
+            <th>日期</th>
+            <th>线下收款 (RM)</th>
+            <th>已充值 (RM)</th>
+            <th>差额</th>
+            <th>预警等级</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>K0001</td>
+            <td>2025-11-27</td>
+            <td>180.00</td>
+            <td>140.00</td>
+            <td>40.00</td>
+            <td><span class="tag tag-danger">高风险 · 建议复查</span></td>
+          </tr>
+          <tr>
+            <td>T0001</td>
+            <td>2025-11-27</td>
+            <td>210.00</td>
+            <td>200.00</td>
+            <td>10.00</td>
+            <td><span class="tag tag-success">正常</span></td>
+          </tr>
+          </tbody>
+        </table>
+
+        <div class="divider"></div>
+
+        <div class="grid-3">
+          <div class="stat-card">
+            <div class="stat-label mb-1">Top 员工（按流水额）</div>
+            <div class="muted" style="font-size: 13px;">
+              · 员工 A（T0001）：RM 2,500 今日流水<br/>
+              · 员工 C（K0001）：RM 1,800 今日流水<br/>
+              · 员工 D（Ipoh 分店）：RM 1,200 今日流水
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label mb-1">疑似操作异常员工</div>
+            <div class="muted" style="font-size: 13px;">
+              · 员工 B：连续 3 天「线下收款 &gt; 实际充值」差额偏大<br/>
+              · 员工 F：名下玩家余额总和长期高于 RM 500<br/>
+              <br/>
+              老板可以点进去看详细流水，再决定要不要问话 / 调整权限。
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label mb-1">系统自动风控策略示意</div>
+            <ul class="muted" style="font-size: 13px; padding-left: 18px;">
+              <li>单日差额超过设定阈值，自动标红</li>
+              <li>玩家余额超过上限，自动预警</li>
+              <li>员工频繁「补单 / 调整」会进入风控名单</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="flex-between">
+          <div>
+            <h4 class="mb-1">可以跟客户这样讲：</h4>
+            <p class="muted" style="font-size: 13px;">
+              「老板只要每天打开【大师兄线下门店】后台这一页，就能一眼看出哪个分店、哪个员工的数据不对劲，<br/>
+              再把这里导出成 Excel，跟游戏平台后台流水一对，比手工记账安全太多。」
+            </p>
+          </div>
+          <div>
+            <button class="btn-outline btn-small">导出全网日报表（Demo）</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 充值小票弹层 -->
+<div class="receipt-overlay" id="receiptOverlay">
+  <div class="receipt-card" id="receiptCard">
+    <div class="receipt-header">
+      <div>
+        <div class="receipt-title">大师兄线下门店 · 充值成功收据</div>
+        <div style="font-size: 11px; color:#6b7280;" id="receiptNo">收据编号：DSX-RC-000001</div>
+      </div>
+      <div class="receipt-status">已成功充值</div>
+    </div>
+
+    <div class="receipt-section-title">门店 & 操作信息</div>
+    <div class="receipt-grid">
+      <div class="receipt-label">门店</div>
+      <div class="receipt-value" id="rcBranch">T0001</div>
+      <div class="receipt-label">操作员工</div>
+      <div class="receipt-value" id="rcStaff">员工A</div>
+      <div class="receipt-label">充值时间</div>
+      <div class="receipt-value" id="rcTime">2025-11-27 14:32:10</div>
+    </div>
+
+    <div class="receipt-section-title">玩家信息</div>
+    <div class="receipt-grid">
+      <div class="receipt-label">手机号</div>
+      <div class="receipt-value" id="rcPhone">012-***6789</div>
+      <div class="receipt-label">游戏</div>
+      <div class="receipt-value" id="rcGame">GLB99</div>
+      <div class="receipt-label">游戏账号</div>
+      <div class="receipt-value" id="rcGameAccount">dsx12345</div>
+    </div>
+
+    <div class="receipt-amount-box">
+      <div class="receipt-amount-row">
+        <span class="receipt-label">线下付款金额</span>
+        <span class="receipt-value" id="rcOfflinePaid">RM 100.00</span>
+      </div>
+      <div class="receipt-amount-row">
+        <span class="receipt-label">本次实际充值</span>
+        <span class="receipt-value" id="rcTopupAmount">RM 110.00</span>
+      </div>
+      <div class="receipt-amount-row">
+        <span class="receipt-label">其中包含赠送</span>
+        <span class="receipt-value" id="rcBonus">RM 10.00</span>
+      </div>
+      <div class="receipt-amount-row">
+        <span class="receipt-label">当前账户余额</span>
+        <span class="receipt-value" id="rcBalanceAfter">RM 0.00</span>
+      </div>
+    </div>
+
+    <div class="receipt-qr">
+      <div>
+        <div style="font-size: 12px; font-weight: 600; color:#374151;">扫码下载游戏 / 打开官网</div>
+        <div style="font-size: 11px; color:#6b7280;">
+          正式系统可替换为「大师兄游戏官网 / 下载页」二维码，玩家用微信 / 支付宝一扫就能进游戏。
+        </div>
+      </div>
+      <div class="qr-placeholder">
+        大师兄<br/>游戏二维码
+      </div>
+    </div>
+
+    <div class="receipt-footer-note">
+      温馨提示：本收据仅作为线下门店充值凭证，最终游戏币数量以游戏内显示为准。建议玩家首次登录后立即在游戏内修改密码。
+    </div>
+
+    <div class="receipt-actions">
+      <button class="btn-ghost btn-small" onclick="copyReceiptLink()">复制链接（Demo）</button>
+      <button class="btn-outline btn-small" onclick="window.print()">打印</button>
+      <button class="btn-primary btn-small" onclick="closeReceipt()">关闭</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const state = {
+  currentBranch: "T0001", // 当前登录员工所属门店代号
+  players: [
+    {
+      id: 1,
+      phone: "012-3456789",
+      game: "GLB99",
+      gameAccount: "glb99001",
+      password: "abc123",
+      homeBranch: "T0001",
+      balance: 50
+    },
+    {
+      id: 2,
+      phone: "013-8888123",
+      game: "GLB88",
+      gameAccount: "glb88002",
+      password: "xyz456",
+      homeBranch: "K0001",
+      balance: 20
+    },
+    {
+      id: 3,
+      phone: "016-7777444",
+      game: "GLB99",
+      gameAccount: "glb99003",
+      password: "pqr789",
+      homeBranch: "K0001",
+      balance: 0
+    },
+    {
+      id: 4,
+      phone: "018-1111999",
+      game: "GLB88",
+      gameAccount: "glb88004",
+      password: "mno321",
+      homeBranch: "T0001",
+      balance: 0
+    }
+  ],
+  lastPlayerId: 4,
+  lastReceipt: null,
+  selectedPlayerId: null
+};
+
+  function fakeLogin() {
+    document.getElementById("loginView").style.display = "none";
+    document.getElementById("appView").style.display = "flex";
+    renderPlayerOptions();
+  }
+
+  function logout() {
+    document.getElementById("appView").style.display = "none";
+    document.getElementById("loginView").style.display = "flex";
+  }
+
+  function showSection(section, el) {
+    document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+    document.getElementById("section-" + section).classList.add("active");
+
+    document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
+    if (el) el.classList.add("active");
+
+    const titleMap = {
+      dashboard: "门店总览 Dashboard",
+      newPlayer: "新玩家登记 · 门店员工端",
+      topup: "充值 & 扣款 · 门店员工端",
+      reports: "报表 & 对账结构",
+      admin: "老板后台总控台 · 总部视角"
+    };
+    const descMap = {
+      dashboard: "这是门店员工日常使用的总览页面，用来跟老板或客户解释系统整体运作。",
+      newPlayer: "演示：手机号验证码 + 绑定大师兄游戏平台随机账号密码 + 自动赠送 RM10。",
+      topup: "演示：记录线下收款，从余额扣除并生成充值成功小票，和游戏充值数据分开记账。",
+      reports: "演示：门店与员工的对账结构。正式系统会按时间 / 门店 / 员工 / 玩家筛选并导出 Excel。",
+      admin: "这是专门给老板看的总控台，一眼看到所有门店的收款、充值、差额与异常预警。"
+    };
+    document.getElementById("sectionTitle").innerText = titleMap[section];
+    document.getElementById("sectionDesc").innerText = descMap[section];
+  }
+
+  let phoneVerified = false;
+  let verifiedPhone = "";
+
+  function sendFakeCode() {
+    const phone = document.getElementById("npPhone").value.trim();
+    if (!phone) {
+      alert("请输入手机号（Demo 提示）");
+      return;
+    }
+    document.getElementById("npCodeHint").innerText = "已模拟发送验证码到：" + phone + "（演示说明用）";
+  }
+
+  function verifyStep() {
+    const phone = document.getElementById("npPhone").value.trim();
+    const code = document.getElementById("npCode").value.trim();
+    if (!phone) {
+      alert("请先输入手机号");
+      return;
+    }
+    if (!code) {
+      alert("请输入验证码（Demo 环节，不校验正确性）");
+      return;
+    }
+
+    phoneVerified = true;
+    verifiedPhone = phone;
+
+    document.getElementById("npGame").disabled = false;
+    document.getElementById("npGameAccount").disabled = false;
+    document.getElementById("npGamePassword").disabled = false;
+    document.getElementById("npSubmitBtn").disabled = false;
+    document.getElementById("npStep2Hint").innerText =
+      "验证码已通过，现在可填写『大师兄游戏平台』随机生成的账号与密码。";
+    alert("手机号验证码已通过（Demo）");
+  }
+
+  function completeNewPlayer() {
+    if (!phoneVerified) {
+      alert("请先完成手机号验证码验证");
+      return;
+    }
+    const game = document.getElementById("npGame").value;
+    const account = document.getElementById("npGameAccount").value.trim();
+    const pwd = document.getElementById("npGamePassword").value.trim();
+    if (!account || !pwd) {
+      alert("请填写游戏平台账号与初始密码（Demo）");
+      return;
+    }
+
+    const newId = ++state.lastPlayerId;
+    const player = {
+      id: newId,
+      phone: verifiedPhone,
+      game: game,
+      gameAccount: account,
+      password: pwd,
+      homeBranch: state.currentBranch,
+      balance: 10
+    };
+    state.players.push(player);
+
+    document.getElementById("npResultPhone").innerText = player.phone;
+    document.getElementById("npResultGame").innerText = player.game;
+    document.getElementById("npResultAccount").innerText = player.gameAccount;
+    document.getElementById("npResultPassword").innerText = player.password;
+    document.getElementById("npResultBalance").innerText = player.balance.toFixed(2);
+    document.getElementById("npResult").style.display = "block";
+
+    renderPlayerOptions();
+    alert("新玩家已创建并赠送 RM10（Demo）");
+  }
+
+  // 渲染玩家搜索列表
+  function renderPlayerOptions() {
+    const list = document.getElementById("topupPlayerList");
+    if (!list) return;
+
+    const keywordInput = document.getElementById("topupSearch");
+    const keyword = keywordInput ? keywordInput.value.trim().toLowerCase() : "";
+
+    list.innerHTML = "";
+
+    const filtered = state.players.filter(p => {
+      if (!keyword) return true;
+      return (
+        (p.phone && p.phone.toLowerCase().includes(keyword)) ||
+        (p.gameAccount && p.gameAccount.toLowerCase().includes(keyword))
+      );
+    });
+
+    if (filtered.length === 0) {
+      const empty = document.createElement("div");
+      empty.className = "player-item";
+      empty.innerHTML = `<span style="font-size:12px;color:#9ca3af;">未找到匹配的玩家（Demo 显示）</span>`;
+      list.appendChild(empty);
+      return;
+    }
+
+    // 如果还没有选择过玩家，默认选列表最后一个（最新）
+    if (state.selectedPlayerId == null && filtered.length > 0) {
+      state.selectedPlayerId = filtered[filtered.length - 1].id;
+      updateSelectedPlayerInfo();
+    }
+
+    filtered.forEach(p => {
+      const item = document.createElement("div");
+      item.className = "player-item" + (state.selectedPlayerId === p.id ? " selected" : "");
+      item.onclick = () => selectPlayer(p.id);
+
+      item.innerHTML = `
+        <div class="player-item-main">
+          <span>${p.phone}</span>
+          <span class="player-item-tag">${p.game} · ${p.gameAccount}</span>
+        </div>
+        <div class="player-item-id">玩家ID：#${p.id} · 门店：${p.homeBranch}</div>
+      `;
+
+      list.appendChild(item);
+    });
+  }
+
+  function filterPlayerList() {
+    renderPlayerOptions();
+  }
+
+  function selectPlayer(id) {
+    state.selectedPlayerId = id;
+    updateSelectedPlayerInfo();
+    renderPlayerOptions();
+  }
+
+  function getSelectedPlayer() {
+    return state.players.find(p => p.id === state.selectedPlayerId) || null;
+  }
+
+  function updateSelectedPlayerInfo() {
+    const p = getSelectedPlayer();
+    if (!p) {
+      document.getElementById("topupPhone").innerText = "-";
+      document.getElementById("topupGameAccount").innerText = "-";
+      document.getElementById("topupGame").innerText = "-";
+      document.getElementById("topupBalance").innerText = "0.00";
+      return;
+    }
+    document.getElementById("topupPhone").innerText = p.phone;
+    document.getElementById("topupGameAccount").innerText = p.gameAccount;
+    document.getElementById("topupGame").innerText = p.game;
+    document.getElementById("topupBalance").innerText = p.balance.toFixed(2);
+    document.getElementById("topupPreview").innerText = "已选中玩家，可录入线下收款或生成充值小票。";
+  }
+
+  function recordDeposit() {
+    const p = getSelectedPlayer();
+    if (!p) {
+      alert("请先通过搜索选择玩家");
+      return;
+    }
+    const amount = parseFloat(document.getElementById("topupDeposit").value);
+    const method = document.getElementById("topupPayMethod").value;
+    if (isNaN(amount) || amount <= 0) {
+      alert("请输入正确的线下付款金额");
+      return;
+    }
+    p.balance += amount;
+    document.getElementById("topupBalance").innerText = p.balance.toFixed(2);
+    document.getElementById("topupPreview").innerText =
+      `已记录线下收款 RM ${amount.toFixed(2)}，方式：${method}（Demo，仅前端演示）。`;
+    document.getElementById("topupDeposit").value = "";
+  }
+
+  function generateReceiptDemo() {
+    const p = getSelectedPlayer();
+    if (!p) {
+      alert("请先通过搜索选择玩家");
+      return;
+    }
+    const deduct = parseFloat(document.getElementById("topupDeductAmount").value);
+    if (isNaN(deduct) || deduct <= 0) {
+      alert("请输入本次已在游戏充值的金额");
+      return;
+    }
+    if (deduct > p.balance) {
+      alert("Demo 提示：扣款金额大于当前余额，正式系统会做风控限制。");
+    }
+
+    // 二次认证：输入手机号后 4 位
+    const phone = p.phone || "";
+    const purePhone = phone.replace(/\\D/g, ""); // 去除非数字
+    const last4 = purePhone.slice(-4);
+    const inputLast4 = prompt(
+      "安全验证：请输入该玩家手机号的后 4 位，\\n\\n玩家手机号显示为：" +
+      phone +
+      "\\n\\n只有输入正确，系统才允许从该玩家余额中扣款。"
+    );
+    if (inputLast4 === null) {
+      // 用户取消
+      return;
+    }
+    if (inputLast4.trim() !== last4) {
+      alert("手机号后 4 位不匹配，已取消本次扣款操作。");
+      return;
+    }
+
+    // 扣款前再次总确认
+    const confirmMsg =
+      `你将为【${p.homeBranch}】门店的玩家：\\n` +
+      `手机号：${p.phone}\\n` +
+      `游戏账号：${p.gameAccount}\\n\\n` +
+      `从余额中扣除：RM ${deduct.toFixed(2)}，并生成充值小票。\\n\\n` +
+      `请确认你已经在游戏平台给「这个玩家」完成了对应的充值。`;
+    if (!confirm(confirmMsg)) {
+      return;
+    }
+
+    p.balance -= deduct;
+    if (p.balance < 0) p.balance = 0;
+    document.getElementById("topupBalance").innerText = p.balance.toFixed(2);
+    document.getElementById("topupPreview").innerText =
+      `已从余额中扣除 RM ${deduct.toFixed(2)}（Demo），并生成一张「大师兄充值小票」。`;
+
+    const now = new Date();
+    const timeStr = now.getFullYear() + "-" +
+      String(now.getMonth() + 1).padStart(2, "0") + "-" +
+      String(now.getDate()).padStart(2, "0") + " " +
+      String(now.getHours()).padStart(2, "0") + ":" +
+      String(now.getMinutes()).padStart(2, "0");
+
+    const offlinePaid = deduct - 10 > 0 ? deduct - 10 : deduct;
+    const bonus = deduct - offlinePaid;
+
+    document.getElementById("rcBranch").innerText = p.homeBranch;
+    document.getElementById("rcStaff").innerText = "员工A";
+    document.getElementById("rcTime").innerText = timeStr;
+    document.getElementById("rcPhone").innerText = p.phone;
+    document.getElementById("rcGame").innerText = p.game;
+    document.getElementById("rcGameAccount").innerText = p.gameAccount;
+    document.getElementById("rcOfflinePaid").innerText = "RM " + offlinePaid.toFixed(2);
+    document.getElementById("rcTopupAmount").innerText = "RM " + deduct.toFixed(2);
+    document.getElementById("rcBonus").innerText = "RM " + bonus.toFixed(2);
+    document.getElementById("rcBalanceAfter").innerText = "RM " + p.balance.toFixed(2);
+
+    document.getElementById("receiptNo").innerText = "收据编号：DSX-RC-" + String(Date.now()).slice(-6);
+
+    document.getElementById("receiptOverlay").style.display = "flex";
+    state.lastReceipt = {
+      link: "https://dashixiong.example.com/receipt/DSX-RC-" + String(Date.now()).slice(-6)
+    };
+  }
+
+  function closeReceipt() {
+    document.getElementById("receiptOverlay").style.display = "none";
+  }
+
+  function copyReceiptLink() {
+    if (state.lastReceipt) {
+      alert(
+        "Demo：正式系统会复制收据链接到剪贴板，员工可以通过 WhatsApp / 微信发给玩家。\\n样例链接：\\n" +
+        state.lastReceipt.link
+      );
+    } else {
+      alert("暂无收据数据（Demo）");
+    }
+  }
+</script>
+
+</body>
+</html>
